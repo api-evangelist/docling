@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Docling Serve — Convert
+  description: 'Docling Serve synchronous conversion. 2 operations across source URLs and uploaded files. Lead operation:
+    Convert Documents From Source URLs. Self-contained Naftiko capability over the Docling Serve HTTP API.'
+  tags:
+  - Docling
+  - Documents
+  - Convert
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    DOCLING_SERVE_BASE_URL: DOCLING_SERVE_BASE_URL
+capability:
+  consumes:
+  - type: http
+    namespace: docling-serve-convert
+    baseUri: '{{env.DOCLING_SERVE_BASE_URL}}'
+    description: Docling Serve synchronous conversion endpoints. Self-contained, no shared references.
+    resources:
+    - name: v1-convert-source
+      path: /v1/convert/source
+      operations:
+      - name: convertsource
+        method: POST
+        description: Convert Documents From Source URLs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: ConvertSourceRequest JSON body with http_sources, file_sources, options, target.
+          required: true
+    - name: v1-convert-file
+      path: /v1/convert/file
+      operations:
+      - name: convertfile
+        method: POST
+        description: Convert Documents From Uploaded Files
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: multipart/form-data with `files` plus conversion options as form fields.
+          required: true
+    authentication:
+      type: none
+      placement: header
+  exposes:
+  - type: rest
+    namespace: docling-serve-convert-rest
+    port: 8080
+    description: REST adapter for Docling Serve Convert. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/v1/convert/source
+      name: v1-convert-source
+      description: REST surface for v1-convert-source.
+      operations:
+      - method: POST
+        name: convertsource
+        description: Convert Documents From Source URLs
+        call: docling-serve-convert.convertsource
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/convert/file
+      name: v1-convert-file
+      description: REST surface for v1-convert-file.
+      operations:
+      - method: POST
+        name: convertfile
+        description: Convert Documents From Uploaded Files
+        call: docling-serve-convert.convertfile
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: docling-serve-convert-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Docling Serve Convert. One tool per consumed operation.
+    tools:
+    - name: docling-convert-source
+      description: Convert Documents From Source URLs
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: docling-serve-convert.convertsource
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: docling-convert-file
+      description: Convert Documents From Uploaded Files
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: docling-serve-convert.convertfile
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

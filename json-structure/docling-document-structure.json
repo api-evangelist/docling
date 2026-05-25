@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-structure.org/draft/2025-04/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/docling/refs/heads/main/json-structure/docling-document-structure.json",
+  "title": "DoclingDocument Structure",
+  "description": "Conceptual structure of a Docling-parsed document. Each item carries provenance back to the page region it came from, and groups assemble items into reading-order hierarchy.",
+  "structures": {
+    "Document": {
+      "members": {
+        "identity": {
+          "description": "Schema, version, and human name of this document.",
+          "fields": ["schema_name", "version", "name"]
+        },
+        "origin": {
+          "description": "Provenance of the source artifact (mimetype, filename, hash, URI)."
+        },
+        "content": {
+          "description": "Structural content of the document.",
+          "fields": ["body", "groups", "texts", "tables", "pictures", "key_value_items"]
+        },
+        "pages": {
+          "description": "Per-page geometry, raster image references, and dpi."
+        }
+      }
+    },
+    "TextItem": {
+      "description": "A piece of text with a semantic label (title, paragraph, code, formula, list_item, etc.) and provenance back to the page bounding box and character span.",
+      "members": ["label", "text", "level", "prov", "parent", "children"]
+    },
+    "TableItem": {
+      "description": "A table reconstructed by TableFormer. `data.grid` is an N x M array of cells with row/column span and header flags.",
+      "members": ["data", "captions", "prov"]
+    },
+    "PictureItem": {
+      "description": "A picture region with optional embedded raster, classification annotations, and natural-language descriptions.",
+      "members": ["image", "captions", "annotations", "prov"]
+    },
+    "KeyValueItem": {
+      "description": "A graph of key/value cells extracted from form-like regions.",
+      "members": ["graph"]
+    },
+    "GroupItem": {
+      "description": "A structural grouping node that holds children in reading order — sections, lists, etc.",
+      "members": ["label", "name", "children"]
+    },
+    "Provenance": {
+      "description": "Source-page provenance for any item: page number, bounding box (`l, t, r, b` plus `coord_origin`), and character span.",
+      "members": ["page_no", "bbox", "charspan"]
+    }
+  },
+  "exports": {
+    "markdown": "Lossy rendering — text + table grids + heading levels.",
+    "html": "Lossy rendering — structural tags with embedded images.",
+    "json": "Lossless serialization of the full DoclingDocument.",
+    "doctags": "Compact tagged-token format used by GraniteDocling and for LLM prompts.",
+    "text": "Plain-text linearization."
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/docling/refs/heads/main/json-schema/docling-convert-request-schema.json",
+  "title": "DoclingConvertRequest",
+  "description": "Request body schema for Docling Serve `POST /v1/convert/source` and its async variant.",
+  "type": "object",
+  "properties": {
+    "http_sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["url"],
+        "properties": {
+          "url": {"type": "string", "format": "uri"},
+          "headers": {
+            "type": "object",
+            "additionalProperties": {"type": "string"}
+          }
+        }
+      }
+    },
+    "file_sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["base64_string", "filename"],
+        "properties": {
+          "base64_string": {"type": "string"},
+          "filename": {"type": "string"}
+        }
+      }
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "from_formats": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["pdf", "docx", "pptx", "xlsx", "html", "md", "asciidoc", "image", "audio", "csv", "xml_uspto", "xml_jats"]
+          }
+        },
+        "to_formats": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["md", "html", "json", "text", "doctags"]
+          }
+        },
+        "image_export_mode": {"type": "string", "enum": ["embedded", "placeholder", "referenced"]},
+        "do_ocr": {"type": "boolean"},
+        "force_ocr": {"type": "boolean"},
+        "ocr_engine": {
+          "type": "string",
+          "enum": ["easyocr", "tesseract", "tesseract_cli", "rapidocr", "mac_ocr", "ocrmac"]
+        },
+        "ocr_lang": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "pdf_backend": {"type": "string", "enum": ["dlparse_v1", "dlparse_v2", "pypdfium2"]},
+        "table_mode": {"type": "string", "enum": ["fast", "accurate"]},
+        "do_table_structure": {"type": "boolean"},
+        "do_code_enrichment": {"type": "boolean"},
+        "do_formula_enrichment": {"type": "boolean"},
+        "do_picture_classification": {"type": "boolean"},
+        "do_picture_description": {"type": "boolean"},
+        "picture_description_area_threshold": {"type": "number"},
+        "include_images": {"type": "boolean"},
+        "images_scale": {"type": "number"},
+        "pipeline": {"type": "string", "enum": ["standard", "vlm"]},
+        "vlm_model": {"type": "string"},
+        "return_as_file": {"type": "boolean"},
+        "abort_on_error": {"type": "boolean"}
+      }
+    },
+    "target": {
+      "type": "object",
+      "properties": {
+        "kind": {"type": "string", "enum": ["inbody", "zip", "s3", "http"]},
+        "zip_file_name": {"type": "string"}
+      }
+    }
+  },
+  "anyOf": [
+    {"required": ["http_sources"]},
+    {"required": ["file_sources"]}
+  ]
+}

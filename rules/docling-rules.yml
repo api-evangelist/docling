@@ -1,0 +1,52 @@
+extends:
+- spectral:oas
+rules:
+  docling-operation-summary-title-case:
+    description: Operation summaries should use Title Case.
+    message: '{{property}} summary should be Title Case'
+    given: $.paths.*[get,post,put,patch,delete,options].summary
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: ^([A-Z][a-zA-Z0-9]*)(\s(A|An|And|At|But|By|For|In|Of|On|Or|The|To|Up|Via|With)|\s[A-Z][a-zA-Z0-9]*)*$
+  docling-versioned-paths:
+    description: API paths exposed by Docling Serve must be versioned under `/v1/`.
+    message: '{{path}} should be prefixed with `/v1/`'
+    given: $.paths
+    severity: warn
+    then:
+      field: '@key'
+      function: pattern
+      functionOptions:
+        match: ^/(v1/|health$|openapi.json$|docs$|ui$)
+  docling-operation-id-camel-case:
+    description: operationId should be camelCase.
+    given: $.paths.*[get,post,put,patch,delete].operationId
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: ^[a-z][a-zA-Z0-9]*$
+  docling-task-id-path-param:
+    description: Endpoints under /v1/status/poll/ and /v1/result/ must declare a task_id path parameter.
+    given: $.paths[?(@property == '/v1/status/poll/{task_id}' || @property == '/v1/result/{task_id}')].*.parameters[?(@.in == 'path')].name
+    severity: error
+    then:
+      function: enumeration
+      functionOptions:
+        values:
+        - task_id
+  docling-tag-defined:
+    description: Every operation must carry a tag.
+    given: $.paths.*[get,post,put,patch,delete].tags
+    severity: warn
+    then:
+      function: truthy
+  docling-json-content-type:
+    description: Sync conversion endpoints should advertise application/json responses.
+    given: $.paths[?(@property == '/v1/convert/source' || @property == '/v1/convert/file')].post.responses.200.content
+    severity: warn
+    then:
+      field: application/json
+      function: truthy

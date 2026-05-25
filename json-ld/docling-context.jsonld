@@ -1,0 +1,139 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://schema.org/",
+    "docling": "https://docling-project.github.io/ns/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "DoclingDocument": {
+      "@id": "docling:DoclingDocument",
+      "@context": {
+        "schema_name": {"@id": "docling:DoclingDocument/schemaName", "@type": "xsd:string"},
+        "version": {"@id": "docling:DoclingDocument/version", "@type": "xsd:string"},
+        "name": {"@id": "schema:name", "@type": "xsd:string"},
+        "origin": {"@id": "docling:DoclingDocument/origin", "@type": "docling:Origin"},
+        "furniture": {"@id": "docling:DoclingDocument/furniture", "@container": "@list"},
+        "body": {"@id": "docling:DoclingDocument/body"},
+        "groups": {"@id": "docling:DoclingDocument/groups", "@container": "@list"},
+        "texts": {"@id": "docling:DoclingDocument/texts", "@container": "@list"},
+        "tables": {"@id": "docling:DoclingDocument/tables", "@container": "@list"},
+        "pictures": {"@id": "docling:DoclingDocument/pictures", "@container": "@list"},
+        "key_value_items": {"@id": "docling:DoclingDocument/keyValueItems", "@container": "@list"},
+        "pages": {"@id": "docling:DoclingDocument/pages"}
+      }
+    },
+
+    "Origin": {
+      "@id": "docling:Origin",
+      "@context": {
+        "mimetype": {"@id": "docling:Origin/mimetype", "@type": "xsd:string"},
+        "binary_hash": {"@id": "docling:Origin/binaryHash", "@type": "xsd:string"},
+        "filename": {"@id": "docling:Origin/filename", "@type": "xsd:string"},
+        "uri": {"@id": "docling:Origin/uri", "@type": "xsd:anyURI"}
+      }
+    },
+
+    "TextItem": {
+      "@id": "docling:TextItem",
+      "@context": {
+        "self_ref": {"@id": "docling:TextItem/selfRef", "@type": "xsd:string"},
+        "label": {"@id": "docling:TextItem/label", "@type": "xsd:string"},
+        "text": {"@id": "schema:text", "@type": "xsd:string"},
+        "level": {"@id": "docling:TextItem/level", "@type": "xsd:integer"},
+        "prov": {"@id": "docling:TextItem/prov", "@container": "@list"}
+      }
+    },
+
+    "TableItem": {
+      "@id": "docling:TableItem",
+      "@context": {
+        "self_ref": {"@id": "docling:TableItem/selfRef", "@type": "xsd:string"},
+        "captions": {"@id": "docling:TableItem/captions", "@container": "@list"},
+        "data": {"@id": "docling:TableItem/data"},
+        "prov": {"@id": "docling:TableItem/prov", "@container": "@list"}
+      }
+    },
+
+    "TableCell": {
+      "@id": "docling:TableCell",
+      "@context": {
+        "text": {"@id": "schema:text", "@type": "xsd:string"},
+        "row_span": {"@id": "docling:TableCell/rowSpan", "@type": "xsd:integer"},
+        "col_span": {"@id": "docling:TableCell/colSpan", "@type": "xsd:integer"},
+        "column_header": {"@id": "docling:TableCell/columnHeader", "@type": "xsd:boolean"},
+        "row_header": {"@id": "docling:TableCell/rowHeader", "@type": "xsd:boolean"}
+      }
+    },
+
+    "PictureItem": {
+      "@id": "docling:PictureItem",
+      "@context": {
+        "self_ref": {"@id": "docling:PictureItem/selfRef", "@type": "xsd:string"},
+        "image": {"@id": "docling:PictureItem/image"},
+        "captions": {"@id": "docling:PictureItem/captions", "@container": "@list"},
+        "annotations": {"@id": "docling:PictureItem/annotations", "@container": "@list"},
+        "prov": {"@id": "docling:PictureItem/prov", "@container": "@list"}
+      }
+    },
+
+    "KeyValueItem": {
+      "@id": "docling:KeyValueItem",
+      "@context": {
+        "self_ref": {"@id": "docling:KeyValueItem/selfRef", "@type": "xsd:string"},
+        "graph": {"@id": "docling:KeyValueItem/graph"}
+      }
+    },
+
+    "GroupItem": {
+      "@id": "docling:GroupItem",
+      "@context": {
+        "self_ref": {"@id": "docling:GroupItem/selfRef", "@type": "xsd:string"},
+        "label": {"@id": "docling:GroupItem/label", "@type": "xsd:string"},
+        "name": {"@id": "schema:name", "@type": "xsd:string"},
+        "children": {"@id": "docling:GroupItem/children", "@container": "@list"}
+      }
+    },
+
+    "Provenance": {
+      "@id": "docling:Provenance",
+      "@context": {
+        "page_no": {"@id": "docling:Provenance/pageNo", "@type": "xsd:integer"},
+        "bbox": {"@id": "docling:Provenance/bbox"},
+        "charspan": {"@id": "docling:Provenance/charspan", "@container": "@list"}
+      }
+    },
+
+    "BoundingBox": {
+      "@id": "docling:BoundingBox",
+      "@context": {
+        "l": {"@id": "docling:BoundingBox/left", "@type": "xsd:decimal"},
+        "t": {"@id": "docling:BoundingBox/top", "@type": "xsd:decimal"},
+        "r": {"@id": "docling:BoundingBox/right", "@type": "xsd:decimal"},
+        "b": {"@id": "docling:BoundingBox/bottom", "@type": "xsd:decimal"},
+        "coord_origin": {"@id": "docling:BoundingBox/coordOrigin", "@type": "xsd:string"}
+      }
+    },
+
+    "ConvertRequest": {
+      "@id": "docling:ConvertRequest",
+      "@context": {
+        "http_sources": {"@id": "docling:ConvertRequest/httpSources", "@container": "@list"},
+        "file_sources": {"@id": "docling:ConvertRequest/fileSources", "@container": "@list"},
+        "options": {"@id": "docling:ConvertRequest/options"},
+        "target": {"@id": "docling:ConvertRequest/target"}
+      }
+    },
+
+    "TaskDetail": {
+      "@id": "docling:TaskDetail",
+      "@context": {
+        "task_id": {"@id": "docling:TaskDetail/taskId", "@type": "xsd:string"},
+        "task_status": {"@id": "docling:TaskDetail/taskStatus", "@type": "xsd:string"},
+        "task_position": {"@id": "docling:TaskDetail/taskPosition", "@type": "xsd:integer"},
+        "task_meta": {"@id": "docling:TaskDetail/taskMeta"}
+      }
+    }
+  }
+}

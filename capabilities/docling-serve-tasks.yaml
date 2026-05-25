@@ -1,0 +1,206 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Docling Serve — Tasks
+  description: 'Docling Serve asynchronous task surface. 4 operations covering async submission, polling, and result
+    retrieval. Lead operation: Submit Source Conversion Asynchronously.'
+  tags:
+  - Docling
+  - Documents
+  - Async
+  - Tasks
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    DOCLING_SERVE_BASE_URL: DOCLING_SERVE_BASE_URL
+capability:
+  consumes:
+  - type: http
+    namespace: docling-serve-tasks
+    baseUri: '{{env.DOCLING_SERVE_BASE_URL}}'
+    description: Docling Serve asynchronous conversion and task lifecycle endpoints.
+    resources:
+    - name: v1-convert-source-async
+      path: /v1/convert/source/async
+      operations:
+      - name: convertsourceasync
+        method: POST
+        description: Submit Source Conversion Asynchronously
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: ConvertSourceRequest JSON body.
+          required: true
+    - name: v1-convert-file-async
+      path: /v1/convert/file/async
+      operations:
+      - name: convertfileasync
+        method: POST
+        description: Submit File Conversion Asynchronously
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: multipart/form-data with files and conversion options.
+          required: true
+    - name: v1-status-poll-task
+      path: /v1/status/poll/{task_id}
+      operations:
+      - name: polltaskstatus
+        method: GET
+        description: Poll Asynchronous Task Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: task_id
+          in: path
+          type: string
+          description: Task identifier returned by the submit operations.
+          required: true
+    - name: v1-result-task
+      path: /v1/result/{task_id}
+      operations:
+      - name: gettaskresult
+        method: GET
+        description: Get Asynchronous Task Result
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: task_id
+          in: path
+          type: string
+          description: Task identifier returned by the submit operations.
+          required: true
+    authentication:
+      type: none
+      placement: header
+  exposes:
+  - type: rest
+    namespace: docling-serve-tasks-rest
+    port: 8080
+    description: REST adapter for Docling Serve Tasks.
+    resources:
+    - path: /v1/v1/convert/source/async
+      name: v1-convert-source-async
+      description: REST surface for v1-convert-source-async.
+      operations:
+      - method: POST
+        name: convertsourceasync
+        description: Submit Source Conversion Asynchronously
+        call: docling-serve-tasks.convertsourceasync
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/convert/file/async
+      name: v1-convert-file-async
+      description: REST surface for v1-convert-file-async.
+      operations:
+      - method: POST
+        name: convertfileasync
+        description: Submit File Conversion Asynchronously
+        call: docling-serve-tasks.convertfileasync
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/status/poll/{task_id}
+      name: v1-status-poll-task
+      description: REST surface for v1-status-poll-task.
+      operations:
+      - method: GET
+        name: polltaskstatus
+        description: Poll Asynchronous Task Status
+        call: docling-serve-tasks.polltaskstatus
+        with:
+          task_id: rest.path.task_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/result/{task_id}
+      name: v1-result-task
+      description: REST surface for v1-result-task.
+      operations:
+      - method: GET
+        name: gettaskresult
+        description: Get Asynchronous Task Result
+        call: docling-serve-tasks.gettaskresult
+        with:
+          task_id: rest.path.task_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: docling-serve-tasks-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Docling Serve Tasks.
+    tools:
+    - name: docling-convert-source-async
+      description: Submit Source Conversion Asynchronously
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: docling-serve-tasks.convertsourceasync
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: docling-convert-file-async
+      description: Submit File Conversion Asynchronously
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: docling-serve-tasks.convertfileasync
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: docling-poll-task-status
+      description: Poll Asynchronous Task Status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: docling-serve-tasks.polltaskstatus
+      with:
+        task_id: tools.task_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: docling-get-task-result
+      description: Get Asynchronous Task Result
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: docling-serve-tasks.gettaskresult
+      with:
+        task_id: tools.task_id
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,105 @@
+vocabulary: 0.1
+info:
+  name: Docling Vocabulary
+  description: |
+    Normative vocabulary used across the Docling toolkit — input formats, output formats,
+    structural element labels, OCR engines, pipelines, and task lifecycle. Captures the
+    operational and capability dimensions shared by the Docling Python library, Docling
+    Serve, Docling MCP, and the language bindings.
+  source: https://docling-project.github.io/docling/
+  modified: '2026-05-25'
+concepts:
+- term: DoclingDocument
+  definition: Unified lossless representation of a parsed document. Container of texts, tables, pictures, key-value items, groups, pages, and provenance.
+- term: DocTags
+  definition: Compact tagged-token serialization of a DoclingDocument used as an LLM-friendly format and as GraniteDocling output.
+- term: Pipeline
+  definition: A processing chain over an input document. Docling ships `standard` and `vlm` pipelines.
+- term: VLM Pipeline
+  definition: Image-first pipeline that uses a visual language model (default GraniteDocling-258M) to extract structure.
+- term: TableFormer
+  definition: IBM Research table-structure recognition model used by Docling to reconstruct rows, columns, headers, and spans.
+- term: DocLayout
+  definition: IBM Research document layout detection model. Identifies titles, paragraphs, lists, captions, tables, pictures, code, and formulas, and assigns reading order.
+- term: GraniteDocling
+  definition: IBM Granite visual language model (258M parameters) tuned for document understanding; produces DocTags.
+- term: Provenance
+  definition: Page number, bounding box, and character span linking an element back to its location in the source document.
+- term: BoundingBox
+  definition: Axis-aligned rectangle (`l`, `t`, `r`, `b`) with a `coord_origin` of `TOPLEFT` or `BOTTOMLEFT`.
+- term: Group
+  definition: Structural node that holds children in reading order (sections, ordered lists, unordered lists).
+- term: KeyValueRegion
+  definition: Form-like document region modeled as a graph of `key` and `value` cells with directional links.
+input_formats:
+- id: pdf
+  description: Programmatic and scanned PDFs. Scanned content is handled via OCR.
+- id: docx
+  description: Microsoft Word.
+- id: pptx
+  description: Microsoft PowerPoint.
+- id: xlsx
+  description: Microsoft Excel.
+- id: html
+  description: HTML pages.
+- id: md
+  description: Markdown source.
+- id: asciidoc
+  description: AsciiDoc source.
+- id: image
+  description: PNG, TIFF, JPEG raster images (treated as single-page documents).
+- id: audio
+  description: WAV and MP3 audio — transcribed via the ASR pipeline to WebVTT.
+- id: csv
+  description: Comma-separated tabular data.
+- id: xml_uspto
+  description: USPTO patent XML.
+- id: xml_jats
+  description: JATS journal article XML.
+output_formats:
+- id: md
+  description: Lossy Markdown rendering.
+- id: html
+  description: Lossy HTML rendering with embedded images.
+- id: json
+  description: Lossless DoclingDocument JSON.
+- id: doctags
+  description: Compact tagged-token format used by GraniteDocling and for LLM prompts.
+- id: text
+  description: Plain-text linearization.
+- id: webvtt
+  description: WebVTT subtitle format produced for audio inputs.
+ocr_engines:
+- id: easyocr
+  description: Default OCR engine.
+- id: tesseract
+  description: Tesseract via the Python tesserocr binding.
+- id: tesseract_cli
+  description: Tesseract via the command-line tesseract binary.
+- id: rapidocr
+  description: ONNX-runtime OCR engine.
+- id: ocrmac
+  description: Apple Vision framework OCR (macOS only).
+table_modes:
+- id: fast
+  description: Lower-latency table-structure reconstruction; fewer post-processing passes.
+- id: accurate
+  description: Higher-accuracy mode using the full TableFormer pipeline.
+pipelines:
+- id: standard
+  description: DocLayout plus modality-specific models — TableFormer, code, formula, picture classifier.
+- id: vlm
+  description: End-to-end image-first VLM pipeline (GraniteDocling by default).
+task_statuses:
+- id: pending
+- id: started
+- id: success
+- id: failure
+- id: revoked
+governance:
+- term: License
+  value: MIT
+- term: Foundation
+  value: LF AI and Data Foundation
+- term: Origin
+  value: IBM Research Zurich — AI for Knowledge team

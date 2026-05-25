@@ -1,0 +1,65 @@
+{
+  "submit": {
+    "request": {
+      "method": "POST",
+      "url": "http://localhost:5001/v1/convert/source/async",
+      "headers": {"Content-Type": "application/json"},
+      "body": {
+        "http_sources": [
+          {"url": "https://arxiv.org/pdf/2206.01062"}
+        ],
+        "options": {
+          "from_formats": ["pdf"],
+          "to_formats": ["json", "md"],
+          "do_ocr": true,
+          "ocr_engine": "easyocr",
+          "ocr_lang": ["en"],
+          "pipeline": "vlm",
+          "vlm_model": "granite_docling"
+        }
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "task_id": "5d6a3a3e-1f4a-4f24-ae5a-3a3b8e9f1c2d",
+        "task_status": "pending",
+        "task_position": 2,
+        "created_at": "2026-05-25T18:30:00Z"
+      }
+    }
+  },
+  "poll": {
+    "request": {
+      "method": "GET",
+      "url": "http://localhost:5001/v1/status/poll/5d6a3a3e-1f4a-4f24-ae5a-3a3b8e9f1c2d"
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "task_id": "5d6a3a3e-1f4a-4f24-ae5a-3a3b8e9f1c2d",
+        "task_status": "started",
+        "task_position": 0,
+        "started_at": "2026-05-25T18:30:14Z"
+      }
+    }
+  },
+  "result": {
+    "request": {
+      "method": "GET",
+      "url": "http://localhost:5001/v1/result/5d6a3a3e-1f4a-4f24-ae5a-3a3b8e9f1c2d"
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "document": {
+          "filename": "2206.01062.pdf",
+          "md_content": "# Layout Parser Paper\n...",
+          "json_content": {"schema_name": "DoclingDocument", "version": "1.4.0"}
+        },
+        "status": "success",
+        "processing_time": 47.2
+      }
+    }
+  }
+}

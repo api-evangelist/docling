@@ -1,0 +1,20 @@
+{
+  "invocation": "docling https://arxiv.org/pdf/2408.09869 --to md --to json --output ./out",
+  "request": {
+    "source": "https://arxiv.org/pdf/2408.09869",
+    "to_formats": ["md", "json"],
+    "output": "./out",
+    "ocr": false,
+    "table_mode": "accurate",
+    "image_export_mode": "embedded",
+    "pipeline": "standard"
+  },
+  "response": {
+    "outputs": [
+      {"path": "./out/2408.09869.md", "format": "md"},
+      {"path": "./out/2408.09869.json", "format": "json"}
+    ],
+    "status": "success",
+    "processing_time": 11.8
+  }
+}

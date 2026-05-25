@@ -1,0 +1,295 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/docling/refs/heads/main/json-schema/docling-document-schema.json",
+  "title": "DoclingDocument",
+  "description": "Lossless representation of a parsed document produced by Docling. Captures structural elements (texts, tables, pictures, key-value items), provenance, layout, and hierarchy across pages.",
+  "type": "object",
+  "required": ["schema_name", "version", "name"],
+  "properties": {
+    "schema_name": {
+      "type": "string",
+      "const": "DoclingDocument"
+    },
+    "version": {
+      "type": "string",
+      "description": "Schema version, e.g. 1.4.0."
+    },
+    "name": {
+      "type": "string",
+      "description": "Logical document name (typically the source filename without extension)."
+    },
+    "origin": {
+      "type": "object",
+      "description": "Provenance of the source artifact.",
+      "properties": {
+        "mimetype": {"type": "string"},
+        "binary_hash": {"type": "string"},
+        "filename": {"type": "string"},
+        "uri": {"type": "string", "format": "uri"}
+      }
+    },
+    "furniture": {
+      "type": "array",
+      "description": "Non-content elements (headers, footers, page numbers).",
+      "items": {"$ref": "#/$defs/RefItem"}
+    },
+    "body": {
+      "type": "object",
+      "description": "Root of the structural hierarchy.",
+      "properties": {
+        "self_ref": {"type": "string"},
+        "children": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/RefItem"}
+        }
+      }
+    },
+    "groups": {
+      "type": "array",
+      "description": "Grouping nodes (sections, lists).",
+      "items": {"$ref": "#/$defs/GroupItem"}
+    },
+    "texts": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/TextItem"}
+    },
+    "tables": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/TableItem"}
+    },
+    "pictures": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/PictureItem"}
+    },
+    "key_value_items": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/KeyValueItem"}
+    },
+    "pages": {
+      "type": "object",
+      "description": "Per-page metadata keyed by page number.",
+      "additionalProperties": {"$ref": "#/$defs/PageItem"}
+    }
+  },
+  "$defs": {
+    "RefItem": {
+      "type": "object",
+      "properties": {
+        "$ref": {"type": "string", "description": "JSON pointer reference to another element."}
+      }
+    },
+    "BoundingBox": {
+      "type": "object",
+      "required": ["l", "t", "r", "b"],
+      "properties": {
+        "l": {"type": "number"},
+        "t": {"type": "number"},
+        "r": {"type": "number"},
+        "b": {"type": "number"},
+        "coord_origin": {"type": "string", "enum": ["TOPLEFT", "BOTTOMLEFT"]}
+      }
+    },
+    "Provenance": {
+      "type": "object",
+      "properties": {
+        "page_no": {"type": "integer"},
+        "bbox": {"$ref": "#/$defs/BoundingBox"},
+        "charspan": {
+          "type": "array",
+          "items": {"type": "integer"},
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "TextItem": {
+      "type": "object",
+      "required": ["self_ref", "label", "text"],
+      "properties": {
+        "self_ref": {"type": "string"},
+        "parent": {"$ref": "#/$defs/RefItem"},
+        "children": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/RefItem"}
+        },
+        "label": {
+          "type": "string",
+          "enum": [
+            "title",
+            "section_header",
+            "paragraph",
+            "list_item",
+            "caption",
+            "footnote",
+            "page_header",
+            "page_footer",
+            "code",
+            "formula",
+            "text"
+          ]
+        },
+        "text": {"type": "string"},
+        "orig": {"type": "string"},
+        "prov": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/Provenance"}
+        },
+        "level": {"type": "integer"}
+      }
+    },
+    "TableItem": {
+      "type": "object",
+      "required": ["self_ref", "data"],
+      "properties": {
+        "self_ref": {"type": "string"},
+        "label": {"type": "string", "const": "table"},
+        "captions": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/RefItem"}
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "num_rows": {"type": "integer"},
+            "num_cols": {"type": "integer"},
+            "grid": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {"$ref": "#/$defs/TableCell"}
+              }
+            }
+          }
+        },
+        "prov": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/Provenance"}
+        }
+      }
+    },
+    "TableCell": {
+      "type": "object",
+      "properties": {
+        "text": {"type": "string"},
+        "row_span": {"type": "integer"},
+        "col_span": {"type": "integer"},
+        "start_row_offset_idx": {"type": "integer"},
+        "end_row_offset_idx": {"type": "integer"},
+        "start_col_offset_idx": {"type": "integer"},
+        "end_col_offset_idx": {"type": "integer"},
+        "column_header": {"type": "boolean"},
+        "row_header": {"type": "boolean"},
+        "row_section": {"type": "boolean"}
+      }
+    },
+    "PictureItem": {
+      "type": "object",
+      "required": ["self_ref"],
+      "properties": {
+        "self_ref": {"type": "string"},
+        "label": {"type": "string", "const": "picture"},
+        "image": {
+          "type": "object",
+          "properties": {
+            "mimetype": {"type": "string"},
+            "dpi": {"type": "integer"},
+            "size": {
+              "type": "object",
+              "properties": {"width": {"type": "number"}, "height": {"type": "number"}}
+            },
+            "uri": {"type": "string"}
+          }
+        },
+        "captions": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/RefItem"}
+        },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "kind": {"type": "string", "enum": ["classification", "description"]},
+              "text": {"type": "string"},
+              "predicted_classes": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "class_name": {"type": "string"},
+                    "confidence": {"type": "number"}
+                  }
+                }
+              }
+            }
+          }
+        },
+        "prov": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/Provenance"}
+        }
+      }
+    },
+    "KeyValueItem": {
+      "type": "object",
+      "required": ["self_ref"],
+      "properties": {
+        "self_ref": {"type": "string"},
+        "label": {"type": "string", "const": "key_value_region"},
+        "graph": {
+          "type": "object",
+          "properties": {
+            "cells": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "cell_id": {"type": "integer"},
+                  "text": {"type": "string"},
+                  "label": {"type": "string", "enum": ["key", "value"]}
+                }
+              }
+            },
+            "links": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "source_cell_id": {"type": "integer"},
+                  "target_cell_id": {"type": "integer"},
+                  "label": {"type": "string"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "GroupItem": {
+      "type": "object",
+      "properties": {
+        "self_ref": {"type": "string"},
+        "label": {"type": "string", "enum": ["section", "list", "ordered_list", "unordered_list"]},
+        "name": {"type": "string"},
+        "children": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/RefItem"}
+        }
+      }
+    },
+    "PageItem": {
+      "type": "object",
+      "properties": {
+        "page_no": {"type": "integer"},
+        "size": {
+          "type": "object",
+          "properties": {"width": {"type": "number"}, "height": {"type": "number"}}
+        },
+        "image": {
+          "type": "object",
+          "properties": {"uri": {"type": "string"}, "dpi": {"type": "integer"}}
+        }
+      }
+    }
+  }
+}

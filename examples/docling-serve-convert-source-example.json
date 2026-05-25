@@ -1,0 +1,50 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "http://localhost:5001/v1/convert/source",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "http_sources": [
+        {
+          "url": "https://arxiv.org/pdf/2408.09869"
+        }
+      ],
+      "options": {
+        "from_formats": ["pdf"],
+        "to_formats": ["md", "json"],
+        "do_ocr": false,
+        "do_table_structure": true,
+        "table_mode": "accurate",
+        "image_export_mode": "embedded",
+        "pipeline": "standard"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "document": {
+        "filename": "2408.09869.pdf",
+        "md_content": "# Docling Technical Report\n\nVersion 1.0...\n",
+        "json_content": {
+          "schema_name": "DoclingDocument",
+          "version": "1.4.0",
+          "name": "2408.09869",
+          "texts": [],
+          "tables": [],
+          "pictures": [],
+          "pages": {}
+        }
+      },
+      "status": "success",
+      "processing_time": 12.4,
+      "timings": {
+        "pipeline_total_time": 12.4,
+        "layout": 3.1,
+        "table_structure": 2.7
+      }
+    }
+  }
+}

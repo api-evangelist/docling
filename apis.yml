@@ -1,0 +1,452 @@
+aid: docling
+url: https://raw.githubusercontent.com/api-evangelist/docling/refs/heads/main/apis.yml
+apis:
+- aid: docling:docling-python-library
+  name: Docling Python Library
+  tags:
+  - Documents
+  - Parsing
+  - Python
+  - SDK
+  - PDF
+  - OCR
+  - LLM
+  - RAG
+  humanURL: https://docling-project.github.io/docling/
+  properties:
+  - url: https://docling-project.github.io/docling/
+    type: Documentation
+  - url: https://docling-project.github.io/docling/getting_started/quickstart/
+    type: GettingStarted
+  - url: https://github.com/docling-project/docling
+    type: SourceCode
+  - url: https://pypi.org/project/docling/
+    type: SDK
+  - url: openapi/docling-cli-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/docling-cli-convert.yaml
+  description: The core Docling Python library and `docling` CLI. Parses PDFs, DOCX, PPTX, XLSX, HTML, images (PNG/TIFF/JPEG),
+    audio (WAV/MP3), WebVTT, LaTeX, and plain text into a unified `DoclingDocument` representation that can be exported
+    to Markdown, HTML, lossless JSON, DocTags, and WebVTT. Implements advanced PDF understanding — page layout,
+    reading order, table structure (TableFormer), code and formula recognition, picture classification — plus OCR
+    (EasyOCR, Tesseract, RapidOCR, Mac OCR) and the GraniteDocling visual language model pipeline. Runs locally for
+    air-gapped and sensitive-data use.
+- aid: docling:docling-serve-rest-api
+  name: Docling Serve REST API
+  tags:
+  - Documents
+  - Parsing
+  - REST
+  - PDF
+  - OCR
+  - Async
+  - WebSocket
+  humanURL: https://github.com/docling-project/docling-serve
+  properties:
+  - url: https://github.com/docling-project/docling-serve
+    type: Documentation
+  - url: https://raw.githubusercontent.com/docling-project/docling-serve/main/docs/usage.md
+    name: Docling Serve Usage
+    type: Documentation
+  - url: https://github.com/docling-project/docling-serve
+    type: SourceCode
+  - url: openapi/docling-serve-openapi.yml
+    type: OpenAPI
+  - url: json-schema/docling-document-schema.json
+    type: JSONSchema
+  - url: json-schema/docling-convert-request-schema.json
+    type: JSONSchema
+  - url: json-ld/docling-context.jsonld
+    type: JSONLD
+  - type: NaftikoCapability
+    url: capabilities/docling-serve-convert.yaml
+  - type: NaftikoCapability
+    url: capabilities/docling-serve-tasks.yaml
+  description: Docling Serve exposes the Docling pipeline as an HTTP service. Synchronous endpoints `POST /v1/convert/source`
+    and `POST /v1/convert/file` accept URL- or upload-sourced documents and return converted JSON, Markdown, HTML, or
+    a zipped bundle. Asynchronous variants (`/v1/convert/source/async`, `/v1/convert/file/async`) return a task handle
+    that can be polled at `/v1/status/poll/{task_id}`, streamed via WebSocket `/v1/status/ws/{task_id}`, and retrieved
+    at `/v1/result/{task_id}`. Container images ship CPU, CUDA 12.8/13.0, and AMD ROCm 6.3 variants; Kubernetes
+    deployment is supported via the Docling Operator.
+- aid: docling:docling-mcp-server
+  name: Docling MCP Server
+  tags:
+  - MCP
+  - Agents
+  - Documents
+  - Parsing
+  humanURL: https://github.com/docling-project/docling-mcp
+  properties:
+  - url: https://github.com/docling-project/docling-mcp
+    type: Documentation
+  - url: https://github.com/docling-project/docling-mcp
+    type: SourceCode
+  description: Model Context Protocol server that exposes Docling document parsing as MCP tools so Claude, Cursor,
+    Gemini, and other MCP-aware agents can convert PDFs, Office files, and images into structured `DoclingDocument`
+    output without bespoke integration code.
+- aid: docling:docling-core
+  name: Docling Core Types
+  tags:
+  - Documents
+  - Schema
+  - Python
+  - SDK
+  humanURL: https://github.com/docling-project/docling-core
+  properties:
+  - url: https://github.com/docling-project/docling-core
+    type: Documentation
+  - url: https://github.com/docling-project/docling-core
+    type: SourceCode
+  - url: https://pypi.org/project/docling-core/
+    type: SDK
+  description: Canonical `DoclingDocument` data model and serialization primitives — text, tables, pictures, layout,
+    hierarchy, bounding boxes, provenance — shared by the Docling library, Docling Serve, the Java port, and the
+    TypeScript bindings.
+- aid: docling:docling-parse
+  name: Docling Parse PDF Extractor
+  tags:
+  - PDF
+  - Parsing
+  - C++
+  humanURL: https://github.com/docling-project/docling-parse
+  properties:
+  - url: https://github.com/docling-project/docling-parse
+    type: Documentation
+  - url: https://github.com/docling-project/docling-parse
+    type: SourceCode
+  description: Native C++ PDF parsing engine used by Docling to extract text with precise coordinates from programmatic
+    (non-scanned) PDF files. Distributed as a Python extension.
+- aid: docling:docling-ibm-models
+  name: Docling IBM Models
+  tags:
+  - AI
+  - Documents
+  - Layout
+  - TableFormer
+  - VLM
+  humanURL: https://github.com/docling-project/docling-ibm-models
+  properties:
+  - url: https://github.com/docling-project/docling-ibm-models
+    type: Documentation
+  - url: https://github.com/docling-project/docling-ibm-models
+    type: SourceCode
+  description: Open-weight IBM Research models that power Docling's understanding pipeline — DocLayout (layout
+    detection and reading order), TableFormer (table structure), code- and formula-recognition heads, picture
+    classifier, and GraniteDocling-258M VLM. Distributed through Hugging Face.
+- aid: docling:docling-eval
+  name: Docling Eval
+  tags:
+  - Evaluation
+  - Documents
+  - Benchmarks
+  humanURL: https://github.com/docling-project/docling-eval
+  properties:
+  - url: https://github.com/docling-project/docling-eval
+    type: Documentation
+  - url: https://github.com/docling-project/docling-eval
+    type: SourceCode
+  description: End-to-end evaluation framework for document parsing models and services. Provides standard datasets
+    and metrics for layout, tables, OCR, and reading-order quality so teams can benchmark Docling — and competing
+    parsers — apples to apples.
+- aid: docling:docling-sdg
+  name: Docling Synthetic Data Generation
+  tags:
+  - Synthetic Data
+  - Training
+  - Documents
+  humanURL: https://github.com/docling-project/docling-sdg
+  properties:
+  - url: https://github.com/docling-project/docling-sdg
+    type: Documentation
+  - url: https://github.com/docling-project/docling-sdg
+    type: SourceCode
+  description: Tools for synthesizing labeled document data from real corpora — useful for fine-tuning layout, table,
+    and reading-order models, and for stress-testing downstream RAG pipelines.
+- aid: docling:docling-graph
+  name: Docling Graph
+  tags:
+  - Knowledge Graph
+  - RAG
+  - Documents
+  humanURL: https://github.com/docling-project/docling-graph
+  properties:
+  - url: https://github.com/docling-project/docling-graph
+    type: Documentation
+  - url: https://github.com/docling-project/docling-graph
+    type: SourceCode
+  description: Transform unstructured documents — once normalized to `DoclingDocument` — into validated, rich, queryable
+    knowledge graphs. Intended for GraphRAG and entity-extraction workflows on top of Docling output.
+- aid: docling:docling-agent
+  name: Docling Agent
+  tags:
+  - Agents
+  - Documents
+  - LLM
+  humanURL: https://github.com/docling-project/docling-agent
+  properties:
+  - url: https://github.com/docling-project/docling-agent
+    type: Documentation
+  - url: https://github.com/docling-project/docling-agent
+    type: SourceCode
+  description: Reference agent that reads, writes, and edits documents using Docling as the IO layer. Demonstrates how
+    Docling output composes with tool-using LLMs to produce structured edits.
+- aid: docling:docling-operator
+  name: Docling Kubernetes Operator
+  tags:
+  - Kubernetes
+  - Operator
+  - Documents
+  humanURL: https://github.com/docling-project/docling-operator
+  properties:
+  - url: https://github.com/docling-project/docling-operator
+    type: Documentation
+  - url: https://github.com/docling-project/docling-operator
+    type: SourceCode
+  description: Go-based Kubernetes operator that deploys and manages Docling Serve workloads — model cache PVCs,
+    GPU/CPU pools, RQ workers, replica sets with sticky sessions, OAuth — from a single CR.
+- aid: docling:docling-java
+  name: Docling Java Bindings
+  tags:
+  - Java
+  - SDK
+  humanURL: https://github.com/docling-project/docling-java
+  properties:
+  - url: https://github.com/docling-project/docling-java
+    type: Documentation
+  - url: https://github.com/docling-project/docling-java
+    type: SourceCode
+  description: A Java API for Docling that lets JVM applications call into the Docling pipeline. Complementary to
+    `docling4j`, which targets Java-native document understanding integrations.
+- aid: docling:docling4j
+  name: Docling4j
+  tags:
+  - Java
+  - SDK
+  humanURL: https://github.com/docling-project/docling4j
+  properties:
+  - url: https://github.com/docling-project/docling4j
+    type: Documentation
+  - url: https://github.com/docling-project/docling4j
+    type: SourceCode
+  description: Brings Docling document understanding into Java projects with idiomatic Java APIs over the Docling
+    serialization format.
+- aid: docling:docling-ts
+  name: Docling TypeScript
+  tags:
+  - TypeScript
+  - JavaScript
+  - SDK
+  humanURL: https://github.com/docling-project/docling-ts
+  properties:
+  - url: https://github.com/docling-project/docling-ts
+    type: Documentation
+  - url: https://github.com/docling-project/docling-ts
+    type: SourceCode
+  description: TypeScript/JavaScript types and helpers for consuming Docling output (DoclingDocument JSON, DocTags)
+    in Node.js and browser applications.
+- aid: docling:docling-langchain
+  name: Docling LangChain Integration
+  tags:
+  - LangChain
+  - RAG
+  - Documents
+  humanURL: https://github.com/docling-project/docling-langchain
+  properties:
+  - url: https://github.com/docling-project/docling-langchain
+    type: Documentation
+  - url: https://github.com/docling-project/docling-langchain
+    type: SourceCode
+  description: First-party LangChain document loader and chunker for Docling. Drops Docling output directly into
+    LangChain retrieval pipelines.
+- aid: docling:docling-jobkit
+  name: Docling Jobkit
+  tags:
+  - Jobs
+  - Async
+  - Documents
+  humanURL: https://github.com/docling-project/docling-jobkit
+  properties:
+  - url: https://github.com/docling-project/docling-jobkit
+    type: Documentation
+  - url: https://github.com/docling-project/docling-jobkit
+    type: SourceCode
+  description: Shared job-runner primitives used by Docling Serve and the Docling Operator to dispatch conversion
+    work across RQ workers and Ray.
+name: Docling
+tags:
+- Documents
+- Parsing
+- PDF
+- OCR
+- Layout
+- Tables
+- RAG
+- LLM
+- Open Source
+- IBM Research
+- LF AI and Data
+- MCP
+- Knowledge Graph
+- Generative AI
+kind: contract
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+access: Open Source
+common:
+- type: Portal
+  url: https://docling-project.github.io/docling/
+- type: Documentation
+  url: https://docling-project.github.io/docling/
+- type: GettingStarted
+  url: https://docling-project.github.io/docling/getting_started/quickstart/
+- type: SourceCode
+  url: https://github.com/docling-project/docling
+- type: GitHubOrganization
+  url: https://github.com/docling-project
+- type: License
+  url: https://github.com/docling-project/docling/blob/main/LICENSE
+- type: SDK
+  url: https://pypi.org/project/docling/
+  name: docling on PyPI
+- type: SDK
+  url: https://pypi.org/project/docling-core/
+  name: docling-core on PyPI
+- type: SDK
+  url: https://pypi.org/project/docling-serve/
+  name: docling-serve on PyPI
+- type: SDK
+  url: https://github.com/docling-project/docling-java
+  name: Java bindings
+- type: SDK
+  url: https://github.com/docling-project/docling4j
+  name: Docling4j
+- type: SDK
+  url: https://github.com/docling-project/docling-ts
+  name: TypeScript / JavaScript
+- type: CLI
+  url: https://docling-project.github.io/docling/reference/cli/
+- type: ReleaseNotes
+  url: https://github.com/docling-project/docling/releases
+- type: ChangeLog
+  url: https://github.com/docling-project/docling/blob/main/CHANGELOG.md
+- type: Issues
+  url: https://github.com/docling-project/docling/issues
+- type: Discussions
+  url: https://github.com/docling-project/docling/discussions
+- type: ContributionGuide
+  url: https://github.com/docling-project/docling/blob/main/CONTRIBUTING.md
+- type: CodeOfConduct
+  url: https://github.com/docling-project/docling/blob/main/CODE_OF_CONDUCT.md
+- type: Governance
+  url: https://lfaidata.foundation/projects/docling/
+  name: LF AI and Data Foundation project page
+- type: Foundation
+  url: https://lfaidata.foundation/
+  name: LF AI and Data Foundation
+- type: Models
+  url: https://huggingface.co/ds4sd
+  name: IBM DS4SD on Hugging Face
+- type: Models
+  url: https://huggingface.co/ibm-granite/granite-docling-258M
+  name: GraniteDocling-258M
+- type: Blog
+  url: https://research.ibm.com/blog/docling-generative-AI
+  name: IBM Research blog — Docling
+- type: AcademicPaper
+  url: https://arxiv.org/abs/2408.09869
+  name: Docling Technical Report
+- type: Integration
+  url: https://docling-project.github.io/docling/integrations/langchain/
+  name: LangChain
+- type: Integration
+  url: https://docling-project.github.io/docling/integrations/llamaindex/
+  name: LlamaIndex
+- type: Integration
+  url: https://docling-project.github.io/docling/integrations/haystack/
+  name: Haystack
+- type: Integration
+  url: https://docling-project.github.io/docling/integrations/crewai/
+  name: Crew AI
+- type: Integration
+  url: https://docling-project.github.io/docling/integrations/txtai/
+  name: txtai
+- type: Integration
+  url: https://docling-project.github.io/docling/integrations/spacy/
+  name: spaCy
+- type: Integration
+  url: https://docling-project.github.io/docling/integrations/apify/
+  name: Apify
+- type: Integration
+  url: https://docling-project.github.io/docling/integrations/nvidia/
+  name: NVIDIA NIM / NeMo Retriever
+- type: Integration
+  url: https://docling-project.github.io/docling/integrations/instructlab/
+  name: InstructLab
+- type: Integration
+  url: https://docling-project.github.io/docling/integrations/bee/
+  name: Bee Agent Framework
+- type: Integration
+  url: https://docling-project.github.io/docling/integrations/weaviate/
+  name: Weaviate
+- type: Integration
+  url: https://docling-project.github.io/docling/integrations/qdrant/
+  name: Qdrant
+- type: Integration
+  url: https://docling-project.github.io/docling/integrations/milvus/
+  name: Milvus
+- type: Integration
+  url: https://docling-project.github.io/docling/integrations/opensearch/
+  name: OpenSearch
+- type: ContainerImage
+  url: https://quay.io/repository/docling-project/docling-serve
+  name: docling-serve container (Quay)
+- type: ContainerImage
+  url: https://github.com/docling-project/docling-serve/pkgs/container/docling-serve
+  name: docling-serve container (GHCR)
+- type: KubernetesOperator
+  url: https://github.com/docling-project/docling-operator
+- type: Features
+  data:
+  - Parses PDF, DOCX, PPTX, XLSX, HTML, PNG/TIFF/JPEG, WAV/MP3, WebVTT, LaTeX, and plain text
+  - Unified DoclingDocument representation with lossless JSON, Markdown, HTML, DocTags, and WebVTT exports
+  - Advanced PDF understanding — page layout, reading order, table structure, code, formulas, image classification
+  - TableFormer model for accurate table structure recognition
+  - GraniteDocling-258M visual language model pipeline for image-first document understanding
+  - OCR engines — EasyOCR, Tesseract, RapidOCR, Mac OCR — with per-language configuration
+  - Automatic Speech Recognition (ASR) for audio inputs (WAV, MP3) producing WebVTT
+  - Local, air-gapped execution — no data leaves the host
+  - MCP server (docling-mcp) exposes parsing as agent tools for Claude, Cursor, Gemini and other clients
+  - Docling Serve HTTP API with sync and async endpoints, WebSocket task streaming, and zip-bundle output
+  - Kubernetes-native deployment via the Docling Operator (model-cache PVCs, RQ workers, GPU pools, OAuth, sticky sessions)
+  - Plug-and-play integrations with LangChain, LlamaIndex, Haystack, Crew AI, txtai, Bee, spaCy
+  - Application-specific XML schemas (USPTO, JATS, XBRL)
+  - Knowledge-graph extraction via docling-graph
+  - Synthetic data generation via docling-sdg for fine-tuning
+  - End-to-end evaluation framework (docling-eval) with standard datasets and metrics
+  - Java, Java-native, TypeScript, and Swift (docling-snap) bindings
+  - Open-source MIT license, governed by the LF AI and Data Foundation
+  - Originated at IBM Research Zurich (AI for Knowledge team)
+  sources:
+  - https://docling-project.github.io/docling/
+  - https://github.com/docling-project/docling
+  - https://github.com/docling-project/docling-serve
+  - https://github.com/docling-project/docling-mcp
+  - https://lfaidata.foundation/projects/docling/
+  - https://arxiv.org/abs/2408.09869
+  updated: '2026-05-25'
+created: '2026-05-25T00:00:00.000Z'
+modified: '2026-05-25'
+position: Consuming
+description: Docling is an open-source toolkit for parsing diverse document formats — PDF, DOCX, PPTX, XLSX, HTML,
+  images, audio, LaTeX, plain text — into a unified, lossless DoclingDocument representation that downstream
+  generative AI and RAG systems can consume directly. It pairs IBM Research's DocLayout and TableFormer models with
+  the GraniteDocling visual language model and pluggable OCR engines, runs entirely locally for air-gapped use, and
+  ships as a Python library and CLI, a FastAPI HTTP service (docling-serve), an MCP server (docling-mcp), and a
+  Kubernetes operator. Originally created by IBM Research Zurich; now hosted by the LF AI and Data Foundation under
+  the MIT license.
+maintainers:
+- FN: Kin Lane
+  email: info@apievangelist.com
+  X: apievangelist
+  url: https://apievangelist.com
+specificationVersion: '0.16'
