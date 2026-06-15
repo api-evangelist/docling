@@ -1,0 +1,1949 @@
+{
+  "item": [
+    {
+      "id": "7194103b-da18-4269-ae5c-438d5454e5d0",
+      "name": "Convert",
+      "description": {
+        "content": "Synchronous conversion endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b5827d23-5842-41cf-ad4a-f0bd916806c6",
+          "name": "Convert Documents From Source URLs",
+          "request": {
+            "name": "Convert Documents From Source URLs",
+            "description": {
+              "content": "Synchronously convert one or more documents pulled from HTTP source URLs or\nprovided inline as base64. Returns the converted document(s) directly in the\nresponse body.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "convert",
+                "source"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"http_sources\": [\n    {\n      \"url\": \"<uri>\",\n      \"headers\": {\n        \"key_0\": \"<string>\"\n      }\n    },\n    {\n      \"url\": \"<uri>\",\n      \"headers\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\"\n      }\n    }\n  ],\n  \"file_sources\": [\n    {\n      \"base64_string\": \"<string>\",\n      \"filename\": \"<string>\"\n    },\n    {\n      \"base64_string\": \"<string>\",\n      \"filename\": \"<string>\"\n    }\n  ],\n  \"options\": {\n    \"from_formats\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"to_formats\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"image_export_mode\": \"<string>\",\n    \"do_ocr\": \"<boolean>\",\n    \"force_ocr\": \"<boolean>\",\n    \"ocr_engine\": \"<string>\",\n    \"ocr_lang\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"pdf_backend\": \"<string>\",\n    \"table_mode\": \"<string>\",\n    \"do_table_structure\": \"<boolean>\",\n    \"do_code_enrichment\": \"<boolean>\",\n    \"do_formula_enrichment\": \"<boolean>\",\n    \"do_picture_classification\": \"<boolean>\",\n    \"do_picture_description\": \"<boolean>\",\n    \"picture_description_area_threshold\": \"<number>\",\n    \"include_images\": \"<boolean>\",\n    \"images_scale\": \"<number>\",\n    \"pipeline\": \"<string>\",\n    \"vlm_model\": \"<string>\",\n    \"return_as_file\": \"<boolean>\",\n    \"abort_on_error\": \"<boolean>\"\n  },\n  \"target\": {\n    \"kind\": \"<string>\",\n    \"zip_file_name\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e9ff0573-a299-4354-8af7-7e2629487340",
+              "name": "Conversion completed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "convert",
+                    "source"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"http_sources\": [\n    {\n      \"url\": \"http://lq.bcuiBOb8WFXB\",\n      \"headers\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"url\": \"http://B.kxYpkvTQxpfgeAbVUmiOKdkDoAF.vwlvR\",\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      }\n    }\n  ],\n  \"file_sources\": [\n    {\n      \"base64_string\": \"string\",\n      \"filename\": \"string\"\n    },\n    {\n      \"base64_string\": \"string\",\n      \"filename\": \"string\"\n    }\n  ],\n  \"options\": {\n    \"from_formats\": [\n      \"image\",\n      \"xml_uspto\"\n    ],\n    \"to_formats\": [\n      \"md\",\n      \"md\"\n    ],\n    \"image_export_mode\": \"embedded\",\n    \"do_ocr\": false,\n    \"force_ocr\": false,\n    \"ocr_engine\": \"easyocr\",\n    \"ocr_lang\": [\n      \"string\",\n      \"string\"\n    ],\n    \"pdf_backend\": \"pypdfium2\",\n    \"table_mode\": \"accurate\",\n    \"do_table_structure\": false,\n    \"do_code_enrichment\": true,\n    \"do_formula_enrichment\": false,\n    \"do_picture_classification\": false,\n    \"do_picture_description\": false,\n    \"picture_description_area_threshold\": 9341.591087680696,\n    \"include_images\": true,\n    \"images_scale\": 1452.7799742507896,\n    \"pipeline\": \"vlm\",\n    \"vlm_model\": \"string\",\n    \"return_as_file\": false,\n    \"abort_on_error\": false\n  },\n  \"target\": {\n    \"kind\": \"s3\",\n    \"zip_file_name\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"document\": {\n    \"filename\": \"string\",\n    \"md_content\": \"string\",\n    \"html_content\": \"string\",\n    \"json_content\": {\n      \"schema_name\": \"string\",\n      \"version\": \"string\",\n      \"name\": \"string\",\n      \"origin\": {},\n      \"body\": {},\n      \"pages\": {}\n    },\n    \"text_content\": \"string\",\n    \"doctags_content\": \"string\"\n  },\n  \"status\": \"partial_success\",\n  \"processing_time\": 7060.684377828995,\n  \"timings\": {\n    \"key_0\": 5599.786298697389\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43487f56-2e3c-4dfc-b15a-7e59859402ae",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "convert",
+                    "source"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"http_sources\": [\n    {\n      \"url\": \"http://lq.bcuiBOb8WFXB\",\n      \"headers\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"url\": \"http://B.kxYpkvTQxpfgeAbVUmiOKdkDoAF.vwlvR\",\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      }\n    }\n  ],\n  \"file_sources\": [\n    {\n      \"base64_string\": \"string\",\n      \"filename\": \"string\"\n    },\n    {\n      \"base64_string\": \"string\",\n      \"filename\": \"string\"\n    }\n  ],\n  \"options\": {\n    \"from_formats\": [\n      \"image\",\n      \"xml_uspto\"\n    ],\n    \"to_formats\": [\n      \"md\",\n      \"md\"\n    ],\n    \"image_export_mode\": \"embedded\",\n    \"do_ocr\": false,\n    \"force_ocr\": false,\n    \"ocr_engine\": \"easyocr\",\n    \"ocr_lang\": [\n      \"string\",\n      \"string\"\n    ],\n    \"pdf_backend\": \"pypdfium2\",\n    \"table_mode\": \"accurate\",\n    \"do_table_structure\": false,\n    \"do_code_enrichment\": true,\n    \"do_formula_enrichment\": false,\n    \"do_picture_classification\": false,\n    \"do_picture_description\": false,\n    \"picture_description_area_threshold\": 9341.591087680696,\n    \"include_images\": true,\n    \"images_scale\": 1452.7799742507896,\n    \"pipeline\": \"vlm\",\n    \"vlm_model\": \"string\",\n    \"return_as_file\": false,\n    \"abort_on_error\": false\n  },\n  \"target\": {\n    \"kind\": \"s3\",\n    \"zip_file_name\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "11cae266-979d-4eda-b53e-7916d72e270b",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "convert",
+                    "source"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"http_sources\": [\n    {\n      \"url\": \"http://lq.bcuiBOb8WFXB\",\n      \"headers\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"url\": \"http://B.kxYpkvTQxpfgeAbVUmiOKdkDoAF.vwlvR\",\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      }\n    }\n  ],\n  \"file_sources\": [\n    {\n      \"base64_string\": \"string\",\n      \"filename\": \"string\"\n    },\n    {\n      \"base64_string\": \"string\",\n      \"filename\": \"string\"\n    }\n  ],\n  \"options\": {\n    \"from_formats\": [\n      \"image\",\n      \"xml_uspto\"\n    ],\n    \"to_formats\": [\n      \"md\",\n      \"md\"\n    ],\n    \"image_export_mode\": \"embedded\",\n    \"do_ocr\": false,\n    \"force_ocr\": false,\n    \"ocr_engine\": \"easyocr\",\n    \"ocr_lang\": [\n      \"string\",\n      \"string\"\n    ],\n    \"pdf_backend\": \"pypdfium2\",\n    \"table_mode\": \"accurate\",\n    \"do_table_structure\": false,\n    \"do_code_enrichment\": true,\n    \"do_formula_enrichment\": false,\n    \"do_picture_classification\": false,\n    \"do_picture_description\": false,\n    \"picture_description_area_threshold\": 9341.591087680696,\n    \"include_images\": true,\n    \"images_scale\": 1452.7799742507896,\n    \"pipeline\": \"vlm\",\n    \"vlm_model\": \"string\",\n    \"return_as_file\": false,\n    \"abort_on_error\": false\n  },\n  \"target\": {\n    \"kind\": \"s3\",\n    \"zip_file_name\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3a91c3e9-0b42-436f-8a75-5f88e8cea477",
+          "name": "Convert Documents From Uploaded Files",
+          "request": {
+            "name": "Convert Documents From Uploaded Files",
+            "description": {
+              "content": "Synchronously convert one or more documents uploaded as multipart form data.\nConversion options are supplied as additional form fields.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "convert",
+                "file"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "files",
+                  "value": "[\"<binary>\",\"<binary>\"]",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "from_formats",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "to_formats",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "image_export_mode",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": " (This can only be one of embedded,placeholder,referenced)"
+                },
+                {
+                  "key": "do_ocr",
+                  "value": "<boolean>",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "ocr_engine",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "force_ocr",
+                  "value": "<boolean>",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "ocr_lang",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "pdf_backend",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "table_mode",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": " (This can only be one of fast,accurate)"
+                },
+                {
+                  "key": "do_table_structure",
+                  "value": "<boolean>",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "include_images",
+                  "value": "<boolean>",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "images_scale",
+                  "value": "<number>",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "return_as_file",
+                  "value": "<boolean>",
+                  "type": "text",
+                  "description": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "338b0443-97b2-428e-881f-915816bb0058",
+              "name": "Conversion completed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "convert",
+                    "file"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "files",
+                      "value": "[\"<binary>\",\"<binary>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "from_formats",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "to_formats",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": " (This can only be one of embedded,placeholder,referenced)",
+                        "type": "text/plain"
+                      },
+                      "key": "image_export_mode",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "do_ocr",
+                      "value": "<boolean>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "ocr_engine",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "force_ocr",
+                      "value": "<boolean>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "ocr_lang",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "pdf_backend",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": " (This can only be one of fast,accurate)",
+                        "type": "text/plain"
+                      },
+                      "key": "table_mode",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "do_table_structure",
+                      "value": "<boolean>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "include_images",
+                      "value": "<boolean>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "images_scale",
+                      "value": "<number>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "return_as_file",
+                      "value": "<boolean>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"document\": {\n    \"filename\": \"string\",\n    \"md_content\": \"string\",\n    \"html_content\": \"string\",\n    \"json_content\": {\n      \"schema_name\": \"string\",\n      \"version\": \"string\",\n      \"name\": \"string\",\n      \"origin\": {},\n      \"body\": {},\n      \"pages\": {}\n    },\n    \"text_content\": \"string\",\n    \"doctags_content\": \"string\"\n  },\n  \"status\": \"partial_success\",\n  \"processing_time\": 7060.684377828995,\n  \"timings\": {\n    \"key_0\": 5599.786298697389\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e599856-5af1-464f-9dad-363dc337429a",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "convert",
+                    "file"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "files",
+                      "value": "[\"<binary>\",\"<binary>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "from_formats",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "to_formats",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": " (This can only be one of embedded,placeholder,referenced)",
+                        "type": "text/plain"
+                      },
+                      "key": "image_export_mode",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "do_ocr",
+                      "value": "<boolean>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "ocr_engine",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "force_ocr",
+                      "value": "<boolean>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "ocr_lang",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "pdf_backend",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": " (This can only be one of fast,accurate)",
+                        "type": "text/plain"
+                      },
+                      "key": "table_mode",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "do_table_structure",
+                      "value": "<boolean>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "include_images",
+                      "value": "<boolean>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "images_scale",
+                      "value": "<number>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "return_as_file",
+                      "value": "<boolean>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1ebb7374-7b1b-486f-bef6-65ad7416752b",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "convert",
+                    "file"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "files",
+                      "value": "[\"<binary>\",\"<binary>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "from_formats",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "to_formats",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": " (This can only be one of embedded,placeholder,referenced)",
+                        "type": "text/plain"
+                      },
+                      "key": "image_export_mode",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "do_ocr",
+                      "value": "<boolean>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "ocr_engine",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "force_ocr",
+                      "value": "<boolean>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "ocr_lang",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "pdf_backend",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": " (This can only be one of fast,accurate)",
+                        "type": "text/plain"
+                      },
+                      "key": "table_mode",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "do_table_structure",
+                      "value": "<boolean>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "include_images",
+                      "value": "<boolean>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "images_scale",
+                      "value": "<number>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "return_as_file",
+                      "value": "<boolean>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "fe2313c7-f463-43b4-81d7-5de5896c5287",
+      "name": "Async",
+      "description": {
+        "content": "Asynchronous conversion submission.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "19dcced1-82ce-4394-a436-17e1feb9ef90",
+          "name": "Submit Source Conversion Asynchronously",
+          "request": {
+            "name": "Submit Source Conversion Asynchronously",
+            "description": {
+              "content": "Submit a source-based conversion job to the async queue. Returns a `TaskDetail`\nwith the queue position and a `task_id` for subsequent polling.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "convert",
+                "source",
+                "async"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"http_sources\": [\n    {\n      \"url\": \"<uri>\",\n      \"headers\": {\n        \"key_0\": \"<string>\"\n      }\n    },\n    {\n      \"url\": \"<uri>\",\n      \"headers\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\"\n      }\n    }\n  ],\n  \"file_sources\": [\n    {\n      \"base64_string\": \"<string>\",\n      \"filename\": \"<string>\"\n    },\n    {\n      \"base64_string\": \"<string>\",\n      \"filename\": \"<string>\"\n    }\n  ],\n  \"options\": {\n    \"from_formats\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"to_formats\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"image_export_mode\": \"<string>\",\n    \"do_ocr\": \"<boolean>\",\n    \"force_ocr\": \"<boolean>\",\n    \"ocr_engine\": \"<string>\",\n    \"ocr_lang\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"pdf_backend\": \"<string>\",\n    \"table_mode\": \"<string>\",\n    \"do_table_structure\": \"<boolean>\",\n    \"do_code_enrichment\": \"<boolean>\",\n    \"do_formula_enrichment\": \"<boolean>\",\n    \"do_picture_classification\": \"<boolean>\",\n    \"do_picture_description\": \"<boolean>\",\n    \"picture_description_area_threshold\": \"<number>\",\n    \"include_images\": \"<boolean>\",\n    \"images_scale\": \"<number>\",\n    \"pipeline\": \"<string>\",\n    \"vlm_model\": \"<string>\",\n    \"return_as_file\": \"<boolean>\",\n    \"abort_on_error\": \"<boolean>\"\n  },\n  \"target\": {\n    \"kind\": \"<string>\",\n    \"zip_file_name\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "94936ea4-fd64-413e-8c6c-d4545de83141",
+              "name": "Job accepted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "convert",
+                    "source",
+                    "async"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"http_sources\": [\n    {\n      \"url\": \"http://lq.bcuiBOb8WFXB\",\n      \"headers\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"url\": \"http://B.kxYpkvTQxpfgeAbVUmiOKdkDoAF.vwlvR\",\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      }\n    }\n  ],\n  \"file_sources\": [\n    {\n      \"base64_string\": \"string\",\n      \"filename\": \"string\"\n    },\n    {\n      \"base64_string\": \"string\",\n      \"filename\": \"string\"\n    }\n  ],\n  \"options\": {\n    \"from_formats\": [\n      \"image\",\n      \"xml_uspto\"\n    ],\n    \"to_formats\": [\n      \"md\",\n      \"md\"\n    ],\n    \"image_export_mode\": \"embedded\",\n    \"do_ocr\": false,\n    \"force_ocr\": false,\n    \"ocr_engine\": \"easyocr\",\n    \"ocr_lang\": [\n      \"string\",\n      \"string\"\n    ],\n    \"pdf_backend\": \"pypdfium2\",\n    \"table_mode\": \"accurate\",\n    \"do_table_structure\": false,\n    \"do_code_enrichment\": true,\n    \"do_formula_enrichment\": false,\n    \"do_picture_classification\": false,\n    \"do_picture_description\": false,\n    \"picture_description_area_threshold\": 9341.591087680696,\n    \"include_images\": true,\n    \"images_scale\": 1452.7799742507896,\n    \"pipeline\": \"vlm\",\n    \"vlm_model\": \"string\",\n    \"return_as_file\": false,\n    \"abort_on_error\": false\n  },\n  \"target\": {\n    \"kind\": \"s3\",\n    \"zip_file_name\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"task_id\": \"string\",\n  \"task_status\": \"started\",\n  \"task_position\": 7035,\n  \"task_meta\": {\n    \"key_0\": 3103.9715354192344,\n    \"key_1\": true,\n    \"key_2\": 248.59536503265335,\n    \"key_3\": 464.7975242807745\n  },\n  \"created_at\": \"1964-12-18T13:41:28.654Z\",\n  \"started_at\": \"1964-06-05T02:41:28.708Z\",\n  \"finished_at\": \"1976-03-19T10:33:33.456Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "000bd41c-a58f-4349-b6bc-14c3ee404ff9",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "convert",
+                    "source",
+                    "async"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"http_sources\": [\n    {\n      \"url\": \"http://lq.bcuiBOb8WFXB\",\n      \"headers\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"url\": \"http://B.kxYpkvTQxpfgeAbVUmiOKdkDoAF.vwlvR\",\n      \"headers\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      }\n    }\n  ],\n  \"file_sources\": [\n    {\n      \"base64_string\": \"string\",\n      \"filename\": \"string\"\n    },\n    {\n      \"base64_string\": \"string\",\n      \"filename\": \"string\"\n    }\n  ],\n  \"options\": {\n    \"from_formats\": [\n      \"image\",\n      \"xml_uspto\"\n    ],\n    \"to_formats\": [\n      \"md\",\n      \"md\"\n    ],\n    \"image_export_mode\": \"embedded\",\n    \"do_ocr\": false,\n    \"force_ocr\": false,\n    \"ocr_engine\": \"easyocr\",\n    \"ocr_lang\": [\n      \"string\",\n      \"string\"\n    ],\n    \"pdf_backend\": \"pypdfium2\",\n    \"table_mode\": \"accurate\",\n    \"do_table_structure\": false,\n    \"do_code_enrichment\": true,\n    \"do_formula_enrichment\": false,\n    \"do_picture_classification\": false,\n    \"do_picture_description\": false,\n    \"picture_description_area_threshold\": 9341.591087680696,\n    \"include_images\": true,\n    \"images_scale\": 1452.7799742507896,\n    \"pipeline\": \"vlm\",\n    \"vlm_model\": \"string\",\n    \"return_as_file\": false,\n    \"abort_on_error\": false\n  },\n  \"target\": {\n    \"kind\": \"s3\",\n    \"zip_file_name\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "896f2247-4ba3-430f-9545-a3c47d5b36a6",
+          "name": "Submit File Conversion Asynchronously",
+          "request": {
+            "name": "Submit File Conversion Asynchronously",
+            "description": {
+              "content": "Submit an upload-based conversion job to the async queue. Returns a `TaskDetail`\nfor polling.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "convert",
+                "file",
+                "async"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "files",
+                  "value": "[\"<binary>\",\"<binary>\"]",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "from_formats",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "to_formats",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "image_export_mode",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": " (This can only be one of embedded,placeholder,referenced)"
+                },
+                {
+                  "key": "do_ocr",
+                  "value": "<boolean>",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "ocr_engine",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "force_ocr",
+                  "value": "<boolean>",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "ocr_lang",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "pdf_backend",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "table_mode",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": " (This can only be one of fast,accurate)"
+                },
+                {
+                  "key": "do_table_structure",
+                  "value": "<boolean>",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "include_images",
+                  "value": "<boolean>",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "images_scale",
+                  "value": "<number>",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "return_as_file",
+                  "value": "<boolean>",
+                  "type": "text",
+                  "description": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b297b7e0-cde9-4f13-8cb3-0281db581ccc",
+              "name": "Job accepted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "convert",
+                    "file",
+                    "async"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "files",
+                      "value": "[\"<binary>\",\"<binary>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "from_formats",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "to_formats",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": " (This can only be one of embedded,placeholder,referenced)",
+                        "type": "text/plain"
+                      },
+                      "key": "image_export_mode",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "do_ocr",
+                      "value": "<boolean>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "ocr_engine",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "force_ocr",
+                      "value": "<boolean>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "ocr_lang",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "pdf_backend",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": " (This can only be one of fast,accurate)",
+                        "type": "text/plain"
+                      },
+                      "key": "table_mode",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "do_table_structure",
+                      "value": "<boolean>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "include_images",
+                      "value": "<boolean>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "images_scale",
+                      "value": "<number>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "return_as_file",
+                      "value": "<boolean>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"task_id\": \"string\",\n  \"task_status\": \"started\",\n  \"task_position\": 7035,\n  \"task_meta\": {\n    \"key_0\": 3103.9715354192344,\n    \"key_1\": true,\n    \"key_2\": 248.59536503265335,\n    \"key_3\": 464.7975242807745\n  },\n  \"created_at\": \"1964-12-18T13:41:28.654Z\",\n  \"started_at\": \"1964-06-05T02:41:28.708Z\",\n  \"finished_at\": \"1976-03-19T10:33:33.456Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "783e589a-db23-49a9-b42b-638fc32acea0",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "convert",
+                    "file",
+                    "async"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "files",
+                      "value": "[\"<binary>\",\"<binary>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "from_formats",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "to_formats",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": " (This can only be one of embedded,placeholder,referenced)",
+                        "type": "text/plain"
+                      },
+                      "key": "image_export_mode",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "do_ocr",
+                      "value": "<boolean>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "ocr_engine",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "force_ocr",
+                      "value": "<boolean>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "ocr_lang",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "pdf_backend",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": " (This can only be one of fast,accurate)",
+                        "type": "text/plain"
+                      },
+                      "key": "table_mode",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "do_table_structure",
+                      "value": "<boolean>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "include_images",
+                      "value": "<boolean>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "images_scale",
+                      "value": "<number>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "return_as_file",
+                      "value": "<boolean>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "32879435-9223-4ffd-9476-de096a869e15",
+      "name": "Tasks",
+      "description": {
+        "content": "Task status, results, and streaming.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f888c9bf-d520-4091-b66e-33910a51c224",
+          "name": "Poll Asynchronous Task Status",
+          "request": {
+            "name": "Poll Asynchronous Task Status",
+            "description": {
+              "content": "Return the current `TaskDetail` for the task identified by `task_id`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "status",
+                "poll",
+                ":task_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "task_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ca136bd1-0e28-4f40-bdbd-9e2581f0ef36",
+              "name": "Current task status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "status",
+                    "poll",
+                    ":task_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "task_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"task_id\": \"string\",\n  \"task_status\": \"started\",\n  \"task_position\": 7035,\n  \"task_meta\": {\n    \"key_0\": 3103.9715354192344,\n    \"key_1\": true,\n    \"key_2\": 248.59536503265335,\n    \"key_3\": 464.7975242807745\n  },\n  \"created_at\": \"1964-12-18T13:41:28.654Z\",\n  \"started_at\": \"1964-06-05T02:41:28.708Z\",\n  \"finished_at\": \"1976-03-19T10:33:33.456Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "395c6566-3202-4a67-a4ca-622cbbbf2407",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "status",
+                    "poll",
+                    ":task_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "task_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b682dfff-0a04-4ef5-b905-a110fc08503a",
+          "name": "Get Asynchronous Task Result",
+          "request": {
+            "name": "Get Asynchronous Task Result",
+            "description": {
+              "content": "Return the conversion result for a completed asynchronous task.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "result",
+                ":task_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "task_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "26c10581-d131-4ea4-a3cc-7c12420d2647",
+              "name": "Conversion result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "result",
+                    ":task_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "task_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"document\": {\n    \"filename\": \"string\",\n    \"md_content\": \"string\",\n    \"html_content\": \"string\",\n    \"json_content\": {\n      \"schema_name\": \"string\",\n      \"version\": \"string\",\n      \"name\": \"string\",\n      \"origin\": {},\n      \"body\": {},\n      \"pages\": {}\n    },\n    \"text_content\": \"string\",\n    \"doctags_content\": \"string\"\n  },\n  \"status\": \"partial_success\",\n  \"processing_time\": 7060.684377828995,\n  \"timings\": {\n    \"key_0\": 5599.786298697389\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bbc1d0f0-a489-4bce-812a-25f171a35dc7",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "result",
+                    ":task_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "task_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5e8336e-a93f-4e84-b1f4-51214c6ceb9d",
+              "name": "Task is not yet complete.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "result",
+                    ":task_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "task_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "cf717047-6317-4c7b-9960-228e2bdb61fe",
+      "name": "System",
+      "description": {
+        "content": "Health and metadata.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e2c1c688-47b3-4a4f-a18e-b09c3ffefcf0",
+          "name": "Service Health Check",
+          "request": {
+            "name": "Service Health Check",
+            "description": {
+              "content": "Liveness/readiness probe for Docling Serve.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "health"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "85b36d2c-4311-4c51-a6c8-38484c774415",
+              "name": "Service is healthy.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "98fcc757-33e2-4132-9148-6b3c2bccac73",
+          "name": "Get OpenAPI Specification",
+          "request": {
+            "name": "Get OpenAPI Specification",
+            "description": {
+              "content": "Returns the live OpenAPI specification for the running Docling Serve instance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "openapi.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7252cb8d-a19c-4955-b836-f4ea0f29b2bd",
+              "name": "OpenAPI document.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "openapi.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:5001",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cfbd13bc-566d-4a24-b202-125ed7767881",
+    "name": "Docling Serve REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP service exposing the Docling document-parsing pipeline. Submit documents as URLs\nor uploads and receive a `DoclingDocument` together with optional Markdown, HTML, and\ntext renditions. Synchronous endpoints return the converted document inline; the\nasynchronous endpoints return a task handle that can be polled, streamed over\nWebSocket, and fetched on completion.\n\n\nContact Support:\n Name: Docling Project",
+      "type": "text/plain"
+    }
+  }
+}

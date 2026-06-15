@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Docling CLI as REST",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Convert",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Convert A Document Via The Docling CLI",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "file:///usr/local/bin/v1/convert",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Run the `docling` command against one source (file path or URL) and write the\nconfigured outputs to disk. Mirrors the `docling [source] [flags]` invocation.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

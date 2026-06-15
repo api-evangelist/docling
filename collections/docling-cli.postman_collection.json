@@ -1,0 +1,213 @@
+{
+  "item": [
+    {
+      "id": "372ce4c9-c381-4e0a-8b32-91b362000576",
+      "name": "Convert",
+      "description": {
+        "content": "Document conversion operations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6bcb3da6-eb73-45c6-bc99-05636a996817",
+          "name": "Convert A Document Via The Docling CLI",
+          "request": {
+            "name": "Convert A Document Via The Docling CLI",
+            "description": {
+              "content": "Run the `docling` command against one source (file path or URL) and write the\nconfigured outputs to disk. Mirrors the `docling [source] [flags]` invocation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "convert"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"source\": \"<string>\",\n  \"from_formats\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"to_formats\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"output\": \"<string>\",\n  \"ocr\": \"<boolean>\",\n  \"ocr_engine\": \"<string>\",\n  \"ocr_lang\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"force_ocr\": \"<boolean>\",\n  \"table_mode\": \"<string>\",\n  \"pipeline\": \"<string>\",\n  \"vlm_model\": \"<string>\",\n  \"image_export_mode\": \"<string>\",\n  \"enrich_code\": \"<boolean>\",\n  \"enrich_formula\": \"<boolean>\",\n  \"enrich_picture_classes\": \"<boolean>\",\n  \"enrich_picture_description\": \"<boolean>\",\n  \"device\": \"<string>\",\n  \"num_threads\": \"<integer>\",\n  \"abort_on_error\": \"<boolean>\",\n  \"verbose\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8b31657e-2bfb-432e-a8d8-ea34189027d7",
+              "name": "Conversion succeeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "convert"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source\": \"<string>\",\n  \"from_formats\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"to_formats\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"output\": \"<string>\",\n  \"ocr\": \"<boolean>\",\n  \"ocr_engine\": \"<string>\",\n  \"ocr_lang\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"force_ocr\": \"<boolean>\",\n  \"table_mode\": \"<string>\",\n  \"pipeline\": \"<string>\",\n  \"vlm_model\": \"<string>\",\n  \"image_export_mode\": \"<string>\",\n  \"enrich_code\": \"<boolean>\",\n  \"enrich_formula\": \"<boolean>\",\n  \"enrich_picture_classes\": \"<boolean>\",\n  \"enrich_picture_description\": \"<boolean>\",\n  \"device\": \"<string>\",\n  \"num_threads\": \"<integer>\",\n  \"abort_on_error\": \"<boolean>\",\n  \"verbose\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"outputs\": [\n    {\n      \"path\": \"string\",\n      \"format\": \"string\"\n    },\n    {\n      \"path\": \"string\",\n      \"format\": \"string\"\n    }\n  ],\n  \"status\": \"partial_success\",\n  \"processing_time\": 9514.564563523178\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e5a2076a-b39a-40c0-8547-5e60987af4f9",
+              "name": "Invalid arguments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "convert"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source\": \"<string>\",\n  \"from_formats\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"to_formats\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"output\": \"<string>\",\n  \"ocr\": \"<boolean>\",\n  \"ocr_engine\": \"<string>\",\n  \"ocr_lang\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"force_ocr\": \"<boolean>\",\n  \"table_mode\": \"<string>\",\n  \"pipeline\": \"<string>\",\n  \"vlm_model\": \"<string>\",\n  \"image_export_mode\": \"<string>\",\n  \"enrich_code\": \"<boolean>\",\n  \"enrich_formula\": \"<boolean>\",\n  \"enrich_picture_classes\": \"<boolean>\",\n  \"enrich_picture_description\": \"<boolean>\",\n  \"device\": \"<string>\",\n  \"num_threads\": \"<integer>\",\n  \"abort_on_error\": \"<boolean>\",\n  \"verbose\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": 5689\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ff48378-49e2-42c4-afe8-53049949d9f1",
+              "name": "Conversion failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "convert"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source\": \"<string>\",\n  \"from_formats\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"to_formats\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"output\": \"<string>\",\n  \"ocr\": \"<boolean>\",\n  \"ocr_engine\": \"<string>\",\n  \"ocr_lang\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"force_ocr\": \"<boolean>\",\n  \"table_mode\": \"<string>\",\n  \"pipeline\": \"<string>\",\n  \"vlm_model\": \"<string>\",\n  \"image_export_mode\": \"<string>\",\n  \"enrich_code\": \"<boolean>\",\n  \"enrich_formula\": \"<boolean>\",\n  \"enrich_picture_classes\": \"<boolean>\",\n  \"enrich_picture_description\": \"<boolean>\",\n  \"device\": \"<string>\",\n  \"num_threads\": \"<integer>\",\n  \"abort_on_error\": \"<boolean>\",\n  \"verbose\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": 5689\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "file:///usr/local/bin",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cdfe1f66-12fe-41dd-8056-5a6fdd0c17ef",
+    "name": "Docling CLI as REST",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST-style mapping of the `docling` command-line tool, modeling each conversion\ninvocation as a `POST /v1/convert` call. Useful for documenting and orchestrating\nlocal CLI runs from agent frameworks and capability-based runtimes.\n\n\nContact Support:\n Name: Docling Project",
+      "type": "text/plain"
+    }
+  }
+}

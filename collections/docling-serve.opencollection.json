@@ -1,0 +1,160 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Docling Serve REST API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Convert",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Convert Documents From Source URLs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:5001/v1/convert/source",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Synchronously convert one or more documents pulled from HTTP source URLs or\nprovided inline as base64. Returns the converted document(s) directly in the\nresponse body.\n"
+        },
+        {
+          "info": {
+            "name": "Convert Documents From Uploaded Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:5001/v1/convert/file",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Synchronously convert one or more documents uploaded as multipart form data.\nConversion options are supplied as additional form fields.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Async",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit Source Conversion Asynchronously",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:5001/v1/convert/source/async",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a source-based conversion job to the async queue. Returns a `TaskDetail`\nwith the queue position and a `task_id` for subsequent polling.\n"
+        },
+        {
+          "info": {
+            "name": "Submit File Conversion Asynchronously",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:5001/v1/convert/file/async",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Submit an upload-based conversion job to the async queue. Returns a `TaskDetail`\nfor polling.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Tasks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Poll Asynchronous Task Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:5001/v1/status/poll/:task_id",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Return the current `TaskDetail` for the task identified by `task_id`."
+        },
+        {
+          "info": {
+            "name": "Get Asynchronous Task Result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:5001/v1/result/:task_id",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Return the conversion result for a completed asynchronous task."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "System",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Service Health Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:5001/health"
+          },
+          "docs": "Liveness/readiness probe for Docling Serve."
+        },
+        {
+          "info": {
+            "name": "Get OpenAPI Specification",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:5001/openapi.json"
+          },
+          "docs": "Returns the live OpenAPI specification for the running Docling Serve instance."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
