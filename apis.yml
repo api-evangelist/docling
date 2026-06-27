@@ -21,7 +21,7 @@ apis:
       - url: https://github.com/docling-project/docling
         type: SourceCode
       - url: https://pypi.org/project/docling/
-        type: SDK
+        type: SDKs
       - url: openapi/docling-cli-openapi.yml
         type: OpenAPI
     description: >-
@@ -96,7 +96,7 @@ apis:
       - url: https://github.com/docling-project/docling-core
         type: SourceCode
       - url: https://pypi.org/project/docling-core/
-        type: SDK
+        type: SDKs
     description: >-
       Canonical `DoclingDocument` data model and serialization primitives — text, tables, pictures, layout, hierarchy,
       bounding boxes, provenance — shared by the Docling library, Docling Serve, the Java port, and the TypeScript
@@ -315,22 +315,22 @@ common:
     url: https://github.com/docling-project
   - type: License
     url: https://github.com/docling-project/docling/blob/main/LICENSE
-  - type: SDK
+  - type: SDKs
     url: https://pypi.org/project/docling/
     name: docling on PyPI
-  - type: SDK
+  - type: SDKs
     url: https://pypi.org/project/docling-core/
     name: docling-core on PyPI
-  - type: SDK
+  - type: SDKs
     url: https://pypi.org/project/docling-serve/
     name: docling-serve on PyPI
-  - type: SDK
+  - type: SDKs
     url: https://github.com/docling-project/docling-java
     name: Java bindings
-  - type: SDK
+  - type: SDKs
     url: https://github.com/docling-project/docling4j
     name: Docling4j
-  - type: SDK
+  - type: SDKs
     url: https://github.com/docling-project/docling-ts
     name: TypeScript / JavaScript
   - type: CLI
@@ -341,7 +341,7 @@ common:
     url: https://github.com/docling-project/docling/blob/main/CHANGELOG.md
   - type: Issues
     url: https://github.com/docling-project/docling/issues
-  - type: Discussions
+  - type: Forums
     url: https://github.com/docling-project/docling/discussions
   - type: ContributionGuide
     url: https://github.com/docling-project/docling/blob/main/CONTRIBUTING.md
@@ -365,46 +365,46 @@ common:
   - type: AcademicPaper
     url: https://arxiv.org/abs/2408.09869
     name: Docling Technical Report
-  - type: Integration
+  - type: Integrations
     url: https://docling-project.github.io/docling/integrations/langchain/
     name: LangChain
-  - type: Integration
+  - type: Integrations
     url: https://docling-project.github.io/docling/integrations/llamaindex/
     name: LlamaIndex
-  - type: Integration
+  - type: Integrations
     url: https://docling-project.github.io/docling/integrations/haystack/
     name: Haystack
-  - type: Integration
+  - type: Integrations
     url: https://docling-project.github.io/docling/integrations/crewai/
     name: Crew AI
-  - type: Integration
+  - type: Integrations
     url: https://docling-project.github.io/docling/integrations/txtai/
     name: txtai
-  - type: Integration
+  - type: Integrations
     url: https://docling-project.github.io/docling/integrations/spacy/
     name: spaCy
-  - type: Integration
+  - type: Integrations
     url: https://docling-project.github.io/docling/integrations/apify/
     name: Apify
-  - type: Integration
+  - type: Integrations
     url: https://docling-project.github.io/docling/integrations/nvidia/
     name: NVIDIA NIM / NeMo Retriever
-  - type: Integration
+  - type: Integrations
     url: https://docling-project.github.io/docling/integrations/instructlab/
     name: InstructLab
-  - type: Integration
+  - type: Integrations
     url: https://docling-project.github.io/docling/integrations/bee/
     name: Bee Agent Framework
-  - type: Integration
+  - type: Integrations
     url: https://docling-project.github.io/docling/integrations/weaviate/
     name: Weaviate
-  - type: Integration
+  - type: Integrations
     url: https://docling-project.github.io/docling/integrations/qdrant/
     name: Qdrant
-  - type: Integration
+  - type: Integrations
     url: https://docling-project.github.io/docling/integrations/milvus/
     name: Milvus
-  - type: Integration
+  - type: Integrations
     url: https://docling-project.github.io/docling/integrations/opensearch/
     name: OpenSearch
   - type: ContainerImage

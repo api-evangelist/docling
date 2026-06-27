@@ -2,11 +2,11 @@
   "repo": "docling",
   "feeds": [
     {
-      "source": "https://research.ibm.com/blog/docling-generative-AI",
+      "source": "https://research.ibm.com/rss",
       "feed_url": "https://research.ibm.com/rss",
       "title": "",
-      "saved": 3,
-      "method": "discovered"
+      "saved": 6,
+      "method": "feed"
     },
     {
       "source": "https://huggingface.co/ibm-granite/granite-docling-258M",
@@ -16,6 +16,6 @@
       "method": "none"
     }
   ],
-  "post_count": 3,
-  "fetched": "2026-06-14T20:42:17Z"
+  "post_count": 10,
+  "fetched": "2026-06-27T12:03:07Z"
 }
