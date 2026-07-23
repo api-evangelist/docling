@@ -1,0 +1,203 @@
+openapi: 3.1.0
+info:
+  title: Docling CLI as REST Async Tasks API
+  description: 'REST-style mapping of the `docling` command-line tool, modeling each conversion
+
+    invocation as a `POST /v1/convert` call. Useful for documenting and orchestrating
+
+    local CLI runs from agent frameworks and capability-based runtimes.
+
+    '
+  version: '1.0'
+  license:
+    name: MIT
+    url: https://github.com/docling-project/docling/blob/main/LICENSE
+  contact:
+    name: Docling Project
+    url: https://github.com/docling-project/docling
+servers:
+- url: file:///usr/local/bin
+  description: Local docling CLI binary.
+tags:
+- name: Tasks
+  description: Task status, results, and streaming.
+paths:
+  /v1/status/poll/{task_id}:
+    get:
+      tags:
+      - Tasks
+      summary: Poll Asynchronous Task Status
+      description: Return the current `TaskDetail` for the task identified by `task_id`.
+      operationId: pollTaskStatus
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Current task status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskDetail'
+        '404':
+          $ref: '#/components/responses/Error'
+  /v1/result/{task_id}:
+    get:
+      tags:
+      - Tasks
+      summary: Get Asynchronous Task Result
+      description: Return the conversion result for a completed asynchronous task.
+      operationId: getTaskResult
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Conversion result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConvertResponse'
+            application/zip:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/Error'
+        '409':
+          description: Task is not yet complete.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    DoclingDocumentRendering:
+      type: object
+      description: Container of one or more renderings of the converted document.
+      properties:
+        filename:
+          type: string
+        md_content:
+          type: string
+        html_content:
+          type: string
+        json_content:
+          $ref: '#/components/schemas/DoclingDocument'
+        text_content:
+          type: string
+        doctags_content:
+          type: string
+    DoclingDocument:
+      type: object
+      description: Canonical Docling document representation. See docling-core for the full schema.
+      properties:
+        schema_name:
+          type: string
+        version:
+          type: string
+        name:
+          type: string
+        origin:
+          type: object
+        furniture:
+          type: array
+          items:
+            type: object
+        body:
+          type: object
+        groups:
+          type: array
+          items:
+            type: object
+        texts:
+          type: array
+          items:
+            type: object
+        tables:
+          type: array
+          items:
+            type: object
+        pictures:
+          type: array
+          items:
+            type: object
+        key_value_items:
+          type: array
+          items:
+            type: object
+        pages:
+          type: object
+    TaskDetail:
+      type: object
+      description: Async task descriptor returned by submit/poll/status endpoints.
+      required:
+      - task_id
+      - task_status
+      properties:
+        task_id:
+          type: string
+        task_status:
+          type: string
+          enum:
+          - pending
+          - started
+          - success
+          - failure
+          - revoked
+        task_position:
+          type: integer
+          description: Position in the queue (0 = currently running).
+        task_meta:
+          type: object
+          additionalProperties: true
+        created_at:
+          type: string
+          format: date-time
+        started_at:
+          type: string
+          format: date-time
+        finished_at:
+          type: string
+          format: date-time
+    ErrorResponse:
+      type: object
+      properties:
+        detail:
+          type: string
+        code:
+          type: string
+    ConvertResponse:
+      type: object
+      properties:
+        document:
+          $ref: '#/components/schemas/DoclingDocumentRendering'
+        status:
+          type: string
+          enum:
+          - success
+          - partial_success
+          - failure
+        errors:
+          type: array
+          items:
+            type: object
+        processing_time:
+          type: number
+        timings:
+          type: object
+          additionalProperties:
+            type: number
+  responses:
+    Error:
+      description: Error response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'

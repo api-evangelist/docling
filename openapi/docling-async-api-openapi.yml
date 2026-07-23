@@ -1,0 +1,320 @@
+openapi: 3.1.0
+info:
+  title: Docling CLI as REST Async API
+  description: 'REST-style mapping of the `docling` command-line tool, modeling each conversion
+
+    invocation as a `POST /v1/convert` call. Useful for documenting and orchestrating
+
+    local CLI runs from agent frameworks and capability-based runtimes.
+
+    '
+  version: '1.0'
+  license:
+    name: MIT
+    url: https://github.com/docling-project/docling/blob/main/LICENSE
+  contact:
+    name: Docling Project
+    url: https://github.com/docling-project/docling
+servers:
+- url: file:///usr/local/bin
+  description: Local docling CLI binary.
+tags:
+- name: Async
+  description: Asynchronous conversion submission.
+paths:
+  /v1/convert/source/async:
+    post:
+      tags:
+      - Async
+      summary: Submit Source Conversion Asynchronously
+      description: 'Submit a source-based conversion job to the async queue. Returns a `TaskDetail`
+
+        with the queue position and a `task_id` for subsequent polling.
+
+        '
+      operationId: convertSourceAsync
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConvertSourceRequest'
+      responses:
+        '200':
+          description: Job accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskDetail'
+        '400':
+          $ref: '#/components/responses/Error'
+  /v1/convert/file/async:
+    post:
+      tags:
+      - Async
+      summary: Submit File Conversion Asynchronously
+      description: 'Submit an upload-based conversion job to the async queue. Returns a `TaskDetail`
+
+        for polling.
+
+        '
+      operationId: convertFileAsync
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ConvertFileForm'
+      responses:
+        '200':
+          description: Job accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskDetail'
+        '400':
+          $ref: '#/components/responses/Error'
+components:
+  schemas:
+    ConvertFileForm:
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            type: string
+            format: binary
+        from_formats:
+          type: array
+          items:
+            type: string
+        to_formats:
+          type: array
+          items:
+            type: string
+        image_export_mode:
+          type: string
+          enum:
+          - embedded
+          - placeholder
+          - referenced
+        do_ocr:
+          type: boolean
+        ocr_engine:
+          type: string
+        force_ocr:
+          type: boolean
+        ocr_lang:
+          type: array
+          items:
+            type: string
+        pdf_backend:
+          type: string
+        table_mode:
+          type: string
+          enum:
+          - fast
+          - accurate
+        do_table_structure:
+          type: boolean
+        include_images:
+          type: boolean
+        images_scale:
+          type: number
+        return_as_file:
+          type: boolean
+    ConvertDocumentsOptions:
+      type: object
+      description: Conversion behavior knobs shared by sync and async endpoints.
+      properties:
+        from_formats:
+          type: array
+          description: Input formats to accept.
+          items:
+            type: string
+            enum:
+            - pdf
+            - docx
+            - pptx
+            - xlsx
+            - html
+            - md
+            - asciidoc
+            - image
+            - audio
+            - csv
+            - xml_uspto
+            - xml_jats
+        to_formats:
+          type: array
+          description: Output formats to produce.
+          items:
+            type: string
+            enum:
+            - md
+            - html
+            - json
+            - text
+            - doctags
+        image_export_mode:
+          type: string
+          enum:
+          - embedded
+          - placeholder
+          - referenced
+        do_ocr:
+          type: boolean
+        force_ocr:
+          type: boolean
+        ocr_engine:
+          type: string
+          enum:
+          - easyocr
+          - tesseract
+          - tesseract_cli
+          - rapidocr
+          - mac_ocr
+          - ocrmac
+        ocr_lang:
+          type: array
+          items:
+            type: string
+        pdf_backend:
+          type: string
+          enum:
+          - dlparse_v1
+          - dlparse_v2
+          - pypdfium2
+        table_mode:
+          type: string
+          enum:
+          - fast
+          - accurate
+        do_table_structure:
+          type: boolean
+        do_code_enrichment:
+          type: boolean
+        do_formula_enrichment:
+          type: boolean
+        do_picture_classification:
+          type: boolean
+        do_picture_description:
+          type: boolean
+        picture_description_area_threshold:
+          type: number
+        include_images:
+          type: boolean
+        images_scale:
+          type: number
+        pipeline:
+          type: string
+          enum:
+          - standard
+          - vlm
+        vlm_model:
+          type: string
+        return_as_file:
+          type: boolean
+        abort_on_error:
+          type: boolean
+    TaskDetail:
+      type: object
+      description: Async task descriptor returned by submit/poll/status endpoints.
+      required:
+      - task_id
+      - task_status
+      properties:
+        task_id:
+          type: string
+        task_status:
+          type: string
+          enum:
+          - pending
+          - started
+          - success
+          - failure
+          - revoked
+        task_position:
+          type: integer
+          description: Position in the queue (0 = currently running).
+        task_meta:
+          type: object
+          additionalProperties: true
+        created_at:
+          type: string
+          format: date-time
+        started_at:
+          type: string
+          format: date-time
+        finished_at:
+          type: string
+          format: date-time
+    HttpSource:
+      type: object
+      required:
+      - url
+      properties:
+        url:
+          type: string
+          format: uri
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+    ErrorResponse:
+      type: object
+      properties:
+        detail:
+          type: string
+        code:
+          type: string
+    Target:
+      type: object
+      description: Optional delivery target for the converted output.
+      properties:
+        kind:
+          type: string
+          enum:
+          - inbody
+          - zip
+          - s3
+          - http
+        zip_file_name:
+          type: string
+    FileSource:
+      type: object
+      required:
+      - base64_string
+      - filename
+      properties:
+        base64_string:
+          type: string
+          description: Base64-encoded file content.
+        filename:
+          type: string
+          description: Original filename, used for format detection.
+    ConvertSourceRequest:
+      type: object
+      description: Request body for source-based document conversion.
+      properties:
+        http_sources:
+          type: array
+          description: HTTP/HTTPS URLs to fetch and convert.
+          items:
+            $ref: '#/components/schemas/HttpSource'
+        file_sources:
+          type: array
+          description: Inline base64-encoded documents.
+          items:
+            $ref: '#/components/schemas/FileSource'
+        options:
+          $ref: '#/components/schemas/ConvertDocumentsOptions'
+        target:
+          $ref: '#/components/schemas/Target'
+  responses:
+    Error:
+      description: Error response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'

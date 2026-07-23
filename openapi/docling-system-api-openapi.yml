@@ -1,0 +1,56 @@
+openapi: 3.1.0
+info:
+  title: Docling CLI as REST Async System API
+  description: 'REST-style mapping of the `docling` command-line tool, modeling each conversion
+
+    invocation as a `POST /v1/convert` call. Useful for documenting and orchestrating
+
+    local CLI runs from agent frameworks and capability-based runtimes.
+
+    '
+  version: '1.0'
+  license:
+    name: MIT
+    url: https://github.com/docling-project/docling/blob/main/LICENSE
+  contact:
+    name: Docling Project
+    url: https://github.com/docling-project/docling
+servers:
+- url: file:///usr/local/bin
+  description: Local docling CLI binary.
+tags:
+- name: System
+  description: Health and metadata.
+paths:
+  /health:
+    get:
+      tags:
+      - System
+      summary: Service Health Check
+      description: Liveness/readiness probe for Docling Serve.
+      operationId: getHealth
+      responses:
+        '200':
+          description: Service is healthy.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+  /openapi.json:
+    get:
+      tags:
+      - System
+      summary: Get OpenAPI Specification
+      description: Returns the live OpenAPI specification for the running Docling Serve instance.
+      operationId: getOpenApiSpec
+      responses:
+        '200':
+          description: OpenAPI document.
+          content:
+            application/json:
+              schema:
+                type: object
