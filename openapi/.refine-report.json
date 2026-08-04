@@ -1,0 +1,20 @@
+{
+  "provider": "docling",
+  "sources": [
+    "docling-async-api-openapi.yml",
+    "docling-convert-api-openapi.yml",
+    "docling-system-api-openapi.yml",
+    "docling-tasks-api-openapi.yml"
+  ],
+  "outputs": [
+    "docling-async-api-openapi.yml",
+    "docling-convert-api-openapi.yml",
+    "docling-system-api-openapi.yml",
+    "docling-tasks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

@@ -1,0 +1,144 @@
+openapi: 3.1.0
+info:
+  title: Docling CLI as REST
+  description: |
+    REST-style mapping of the `docling` command-line tool, modeling each conversion
+    invocation as a `POST /v1/convert` call. Useful for documenting and orchestrating
+    local CLI runs from agent frameworks and capability-based runtimes.
+  version: '1.0'
+  license:
+    name: MIT
+    url: https://github.com/docling-project/docling/blob/main/LICENSE
+  contact:
+    name: Docling Project
+    url: https://github.com/docling-project/docling
+servers:
+- url: file:///usr/local/bin
+  description: Local docling CLI binary.
+tags:
+- name: Convert
+  description: Document conversion operations.
+paths:
+  /v1/convert:
+    post:
+      tags:
+      - Convert
+      summary: Convert A Document Via The Docling CLI
+      description: |
+        Run the `docling` command against one source (file path or URL) and write the
+        configured outputs to disk. Mirrors the `docling [source] [flags]` invocation.
+      operationId: cliConvert
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CliConvertRequest'
+      responses:
+        '200':
+          description: Conversion succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CliConvertResponse'
+        '400':
+          description: Invalid arguments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CliError'
+        '500':
+          description: Conversion failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CliError'
+components:
+  schemas:
+    CliConvertRequest:
+      type: object
+      required:
+      - source
+      properties:
+        source:
+          type: string
+          description: File path, directory, or HTTP(S) URL to convert.
+        from_formats:
+          type: array
+          items:
+            type: string
+            enum: [pdf, docx, pptx, xlsx, html, md, asciidoc, image, audio, csv]
+          description: Input formats to accept when scanning directories.
+        to_formats:
+          type: array
+          items:
+            type: string
+            enum: [md, html, json, text, doctags]
+          description: Output formats to write.
+        output:
+          type: string
+          description: Output directory.
+        ocr:
+          type: boolean
+        ocr_engine:
+          type: string
+          enum: [easyocr, tesseract, tesseract_cli, rapidocr, ocrmac]
+        ocr_lang:
+          type: array
+          items:
+            type: string
+        force_ocr:
+          type: boolean
+        table_mode:
+          type: string
+          enum: [fast, accurate]
+        pipeline:
+          type: string
+          enum: [standard, vlm]
+        vlm_model:
+          type: string
+          enum: [granite_docling, granite_docling_mlx, smoldocling]
+        image_export_mode:
+          type: string
+          enum: [embedded, placeholder, referenced]
+        enrich_code:
+          type: boolean
+        enrich_formula:
+          type: boolean
+        enrich_picture_classes:
+          type: boolean
+        enrich_picture_description:
+          type: boolean
+        device:
+          type: string
+          enum: [auto, cpu, cuda, mps]
+        num_threads:
+          type: integer
+        abort_on_error:
+          type: boolean
+        verbose:
+          type: boolean
+    CliConvertResponse:
+      type: object
+      properties:
+        outputs:
+          type: array
+          items:
+            type: object
+            properties:
+              path:
+                type: string
+              format:
+                type: string
+        status:
+          type: string
+          enum: [success, partial_success, failure]
+        processing_time:
+          type: number
+    CliError:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
