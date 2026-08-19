@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Docling CLI as REST Async System API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "System",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Service Health Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "file:///usr/local/bin/health"
+          },
+          "docs": "Liveness/readiness probe for Docling Serve."
+        },
+        {
+          "info": {
+            "name": "Get OpenAPI Specification",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "file:///usr/local/bin/openapi.json"
+          },
+          "docs": "Returns the live OpenAPI specification for the running Docling Serve instance."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

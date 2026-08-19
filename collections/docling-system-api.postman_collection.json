@@ -1,0 +1,172 @@
+{
+  "item": [
+    {
+      "id": "973f7d5c-6a5f-4e75-bb12-8a8082f7223c",
+      "name": "System",
+      "description": {
+        "content": "Health and metadata.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "af544306-3e88-4f65-a49e-a56d54492f33",
+          "name": "Service Health Check",
+          "request": {
+            "name": "Service Health Check",
+            "description": {
+              "content": "Liveness/readiness probe for Docling Serve.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "health"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3786304c-e1c1-4827-88be-6c2a0674961d",
+              "name": "Service is healthy.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c3011076-f6bc-490f-996e-1f0ce8744a1c",
+          "name": "Get OpenAPI Specification",
+          "request": {
+            "name": "Get OpenAPI Specification",
+            "description": {
+              "content": "Returns the live OpenAPI specification for the running Docling Serve instance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "openapi.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "86fd41ab-acd6-4ccd-98c6-996a9bafe4b4",
+              "name": "OpenAPI document.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "openapi.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "file:///usr/local/bin",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a4b7100a-10c2-4abc-b584-2fd1ce372f21",
+    "name": "Docling CLI as REST Async System API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST-style mapping of the `docling` command-line tool, modeling each conversion\ninvocation as a `POST /v1/convert` call. Useful for documenting and orchestrating\nlocal CLI runs from agent frameworks and capability-based runtimes.\n\n\nContact Support:\n Name: Docling Project",
+      "type": "text/plain"
+    }
+  }
+}

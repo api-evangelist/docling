@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Docling CLI as REST Async Tasks API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tasks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Poll Asynchronous Task Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "file:///usr/local/bin/v1/status/poll/:task_id",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Return the current `TaskDetail` for the task identified by `task_id`."
+        },
+        {
+          "info": {
+            "name": "Get Asynchronous Task Result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "file:///usr/local/bin/v1/result/:task_id",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Return the conversion result for a completed asynchronous task."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

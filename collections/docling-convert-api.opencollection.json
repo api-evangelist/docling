@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Docling CLI as REST Async Convert API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Convert",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Convert A Document Via The Docling CLI",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "file:///usr/local/bin/v1/convert",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Run the `docling` command against one source (file path or URL) and write the\nconfigured outputs to disk. Mirrors the `docling [source] [flags]` invocation.\n"
+        },
+        {
+          "info": {
+            "name": "Convert Documents From Source URLs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "file:///usr/local/bin/v1/convert/source",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Synchronously convert one or more documents pulled from HTTP source URLs or\nprovided inline as base64. Returns the converted document(s) directly in the\nresponse body.\n"
+        },
+        {
+          "info": {
+            "name": "Convert Documents From Uploaded Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "file:///usr/local/bin/v1/convert/file",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Synchronously convert one or more documents uploaded as multipart form data.\nConversion options are supplied as additional form fields.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

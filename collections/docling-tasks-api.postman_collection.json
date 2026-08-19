@@ -1,0 +1,350 @@
+{
+  "item": [
+    {
+      "id": "a919cf17-de1f-4395-8ecc-4af07d8d6f9a",
+      "name": "Tasks",
+      "description": {
+        "content": "Task status, results, and streaming.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3e8a65b3-47d4-4391-a588-f54892ad8bae",
+          "name": "Poll Asynchronous Task Status",
+          "request": {
+            "name": "Poll Asynchronous Task Status",
+            "description": {
+              "content": "Return the current `TaskDetail` for the task identified by `task_id`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "status",
+                "poll",
+                ":task_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "task_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7e898e29-b63b-49a9-bd3b-22e3dd6351e2",
+              "name": "Current task status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "status",
+                    "poll",
+                    ":task_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "task_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"task_id\": \"string\",\n  \"task_status\": \"success\",\n  \"task_position\": 3894,\n  \"task_meta\": {\n    \"key_0\": \"string\",\n    \"key_1\": false\n  },\n  \"created_at\": \"1970-04-05T17:18:03.643Z\",\n  \"started_at\": \"1952-04-27T10:46:04.179Z\",\n  \"finished_at\": \"2025-08-20T03:42:21.010Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f5ea8c69-799c-460a-b85e-09e2bd2db115",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "status",
+                    "poll",
+                    ":task_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "task_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cfe0a74d-95f1-4a87-a01c-b9add41ef624",
+          "name": "Get Asynchronous Task Result",
+          "request": {
+            "name": "Get Asynchronous Task Result",
+            "description": {
+              "content": "Return the conversion result for a completed asynchronous task.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "result",
+                ":task_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "task_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0dae5d49-f07a-4bd8-9d75-21083d2c4c9e",
+              "name": "Conversion result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "result",
+                    ":task_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "task_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"document\": {\n    \"filename\": \"string\",\n    \"md_content\": \"string\",\n    \"html_content\": \"string\",\n    \"json_content\": {\n      \"schema_name\": \"string\",\n      \"version\": \"string\",\n      \"name\": \"string\",\n      \"origin\": {},\n      \"body\": {},\n      \"pages\": {}\n    },\n    \"text_content\": \"string\",\n    \"doctags_content\": \"string\"\n  },\n  \"status\": \"success\",\n  \"processing_time\": 8517.972672595104,\n  \"timings\": {\n    \"key_0\": 8395.289639038707,\n    \"key_1\": 9946.028401016521\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38b74673-8048-466a-b8db-2208346ed0d8",
+              "name": "Error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "result",
+                    ":task_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "task_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c1029b3-9aa3-47b3-8276-aa169ddb60d1",
+              "name": "Task is not yet complete.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "result",
+                    ":task_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "task_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "file:///usr/local/bin",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b7d92450-7214-40e5-b12c-ca90f0c44450",
+    "name": "Docling CLI as REST Async Tasks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST-style mapping of the `docling` command-line tool, modeling each conversion\ninvocation as a `POST /v1/convert` call. Useful for documenting and orchestrating\nlocal CLI runs from agent frameworks and capability-based runtimes.\n\n\nContact Support:\n Name: Docling Project",
+      "type": "text/plain"
+    }
+  }
+}

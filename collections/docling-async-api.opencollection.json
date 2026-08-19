@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Docling CLI as REST Async API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Async",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit Source Conversion Asynchronously",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "file:///usr/local/bin/v1/convert/source/async",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a source-based conversion job to the async queue. Returns a `TaskDetail`\nwith the queue position and a `task_id` for subsequent polling.\n"
+        },
+        {
+          "info": {
+            "name": "Submit File Conversion Asynchronously",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "file:///usr/local/bin/v1/convert/file/async",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Submit an upload-based conversion job to the async queue. Returns a `TaskDetail`\nfor polling.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
