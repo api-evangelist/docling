@@ -55,6 +55,12 @@ apis:
 - aid: docling:docling-ibm-models
   name: Docling IBM Models
   tags:
+  - Artificial Intelligence
+  - Documents
+  - Layout
+  - TableFormer
+  - VLM
+  tags_raw:
   - AI
   - Documents
   - Layout
@@ -207,6 +213,10 @@ apis:
 - aid: docling:docling-jobkit
   name: Docling Jobkit
   tags:
+  - Job
+  - Async
+  - Documents
+  tags_raw:
   - Jobs
   - Async
   - Documents
@@ -311,6 +321,8 @@ apis:
   description: Task status, results, and streaming.
   humanURL: https://docling-project.github.io/docling/
   tags:
+  - Task
+  tags_raw:
   - Tasks
   properties:
   - type: OpenAPI
@@ -337,6 +349,21 @@ apis:
     url: json-ld/docling-context.jsonld
 name: Docling
 tags:
+  - Documents
+  - Parsing
+  - PDF
+  - OCR
+  - Layout
+  - Tables
+  - RAG
+  - LLM
+  - Open-Source
+  - IBM Research
+  - LF AI and Data
+  - MCP
+  - Knowledge Graph
+  - Generative AI
+tags_raw:
   - Documents
   - Parsing
   - PDF
