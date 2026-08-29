@@ -1,23 +1,13 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Docling CLI as REST Async Convert API
-  description: 'REST-style mapping of the `docling` command-line tool, modeling each conversion
-
-    invocation as a `POST /v1/convert` call. Useful for documenting and orchestrating
-
-    local CLI runs from agent frameworks and capability-based runtimes.
-
-    '
+  title: Docling Convert API
   version: '1.0'
-  license:
-    name: MIT
-    url: https://github.com/docling-project/docling/blob/main/LICENSE
-  contact:
-    name: Docling Project
-    url: https://github.com/docling-project/docling
+  description: 'Operations tagged Convert across 2 of this provider''s published API definitions: docling-cli-openapi.yml, docling-serve-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: file:///usr/local/bin
   description: Local docling CLI binary.
+- url: http://localhost:5001
+  description: Local Docling Serve container.
 tags:
 - name: Convert
   description: Document conversion operations.
@@ -58,6 +48,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CliError'
+    servers:
+    - url: file:///usr/local/bin
+      description: Local docling CLI binary.
   /v1/convert/source:
     post:
       tags:
@@ -92,6 +85,9 @@ paths:
           $ref: '#/components/responses/Error'
         '500':
           $ref: '#/components/responses/Error'
+    servers:
+    - url: http://localhost:5001
+      description: Local Docling Serve container.
   /v1/convert/file:
     post:
       tags:
@@ -124,149 +120,11 @@ paths:
           $ref: '#/components/responses/Error'
         '500':
           $ref: '#/components/responses/Error'
+    servers:
+    - url: http://localhost:5001
+      description: Local Docling Serve container.
 components:
   schemas:
-    ConvertFileForm:
-      type: object
-      properties:
-        files:
-          type: array
-          items:
-            type: string
-            format: binary
-        from_formats:
-          type: array
-          items:
-            type: string
-        to_formats:
-          type: array
-          items:
-            type: string
-        image_export_mode:
-          type: string
-          enum:
-          - embedded
-          - placeholder
-          - referenced
-        do_ocr:
-          type: boolean
-        ocr_engine:
-          type: string
-        force_ocr:
-          type: boolean
-        ocr_lang:
-          type: array
-          items:
-            type: string
-        pdf_backend:
-          type: string
-        table_mode:
-          type: string
-          enum:
-          - fast
-          - accurate
-        do_table_structure:
-          type: boolean
-        include_images:
-          type: boolean
-        images_scale:
-          type: number
-        return_as_file:
-          type: boolean
-    ConvertDocumentsOptions:
-      type: object
-      description: Conversion behavior knobs shared by sync and async endpoints.
-      properties:
-        from_formats:
-          type: array
-          description: Input formats to accept.
-          items:
-            type: string
-            enum:
-            - pdf
-            - docx
-            - pptx
-            - xlsx
-            - html
-            - md
-            - asciidoc
-            - image
-            - audio
-            - csv
-            - xml_uspto
-            - xml_jats
-        to_formats:
-          type: array
-          description: Output formats to produce.
-          items:
-            type: string
-            enum:
-            - md
-            - html
-            - json
-            - text
-            - doctags
-        image_export_mode:
-          type: string
-          enum:
-          - embedded
-          - placeholder
-          - referenced
-        do_ocr:
-          type: boolean
-        force_ocr:
-          type: boolean
-        ocr_engine:
-          type: string
-          enum:
-          - easyocr
-          - tesseract
-          - tesseract_cli
-          - rapidocr
-          - mac_ocr
-          - ocrmac
-        ocr_lang:
-          type: array
-          items:
-            type: string
-        pdf_backend:
-          type: string
-          enum:
-          - dlparse_v1
-          - dlparse_v2
-          - pypdfium2
-        table_mode:
-          type: string
-          enum:
-          - fast
-          - accurate
-        do_table_structure:
-          type: boolean
-        do_code_enrichment:
-          type: boolean
-        do_formula_enrichment:
-          type: boolean
-        do_picture_classification:
-          type: boolean
-        do_picture_description:
-          type: boolean
-        picture_description_area_threshold:
-          type: number
-        include_images:
-          type: boolean
-        images_scale:
-          type: number
-        pipeline:
-          type: string
-          enum:
-          - standard
-          - vlm
-        vlm_model:
-          type: string
-        return_as_file:
-          type: boolean
-        abort_on_error:
-          type: boolean
     CliConvertRequest:
       type: object
       required:
@@ -364,22 +222,91 @@ components:
           type: boolean
         verbose:
           type: boolean
-    DoclingDocumentRendering:
+    CliConvertResponse:
       type: object
-      description: Container of one or more renderings of the converted document.
       properties:
+        outputs:
+          type: array
+          items:
+            type: object
+            properties:
+              path:
+                type: string
+              format:
+                type: string
+        status:
+          type: string
+          enum:
+          - success
+          - partial_success
+          - failure
+        processing_time:
+          type: number
+    CliError:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+    FileSource:
+      type: object
+      required:
+      - base64_string
+      - filename
+      properties:
+        base64_string:
+          type: string
+          description: Base64-encoded file content.
         filename:
           type: string
-        md_content:
+          description: Original filename, used for format detection.
+    Target:
+      type: object
+      description: Optional delivery target for the converted output.
+      properties:
+        kind:
           type: string
-        html_content:
+          enum:
+          - inbody
+          - zip
+          - s3
+          - http
+        zip_file_name:
           type: string
-        json_content:
-          $ref: '#/components/schemas/DoclingDocument'
-        text_content:
+    ConvertResponse:
+      type: object
+      properties:
+        document:
+          $ref: '#/components/schemas/DoclingDocumentRendering'
+        status:
           type: string
-        doctags_content:
+          enum:
+          - success
+          - partial_success
+          - failure
+        errors:
+          type: array
+          items:
+            type: object
+        processing_time:
+          type: number
+        timings:
+          type: object
+          additionalProperties:
+            type: number
+    HttpSource:
+      type: object
+      required:
+      - url
+      properties:
+        url:
           type: string
+          format: uri
+        headers:
+          type: object
+          additionalProperties:
+            type: string
     DoclingDocument:
       type: object
       description: Canonical Docling document representation. See docling-core for the full schema.
@@ -420,38 +347,53 @@ components:
             type: object
         pages:
           type: object
-    CliError:
+    ConvertFileForm:
       type: object
       properties:
-        message:
-          type: string
-        code:
-          type: integer
-    HttpSource:
-      type: object
-      required:
-      - url
-      properties:
-        url:
-          type: string
-          format: uri
-        headers:
-          type: object
-          additionalProperties:
+        files:
+          type: array
+          items:
             type: string
-    Target:
-      type: object
-      description: Optional delivery target for the converted output.
-      properties:
-        kind:
+            format: binary
+        from_formats:
+          type: array
+          items:
+            type: string
+        to_formats:
+          type: array
+          items:
+            type: string
+        image_export_mode:
           type: string
           enum:
-          - inbody
-          - zip
-          - s3
-          - http
-        zip_file_name:
+          - embedded
+          - placeholder
+          - referenced
+        do_ocr:
+          type: boolean
+        ocr_engine:
           type: string
+        force_ocr:
+          type: boolean
+        ocr_lang:
+          type: array
+          items:
+            type: string
+        pdf_backend:
+          type: string
+        table_mode:
+          type: string
+          enum:
+          - fast
+          - accurate
+        do_table_structure:
+          type: boolean
+        include_images:
+          type: boolean
+        images_scale:
+          type: number
+        return_as_file:
+          type: boolean
     ErrorResponse:
       type: object
       properties:
@@ -459,39 +401,116 @@ components:
           type: string
         code:
           type: string
-    ConvertResponse:
+    ConvertDocumentsOptions:
       type: object
+      description: Conversion behavior knobs shared by sync and async endpoints.
       properties:
-        document:
-          $ref: '#/components/schemas/DoclingDocumentRendering'
-        status:
+        from_formats:
+          type: array
+          description: Input formats to accept.
+          items:
+            type: string
+            enum:
+            - pdf
+            - docx
+            - pptx
+            - xlsx
+            - html
+            - md
+            - asciidoc
+            - image
+            - audio
+            - csv
+            - xml_uspto
+            - xml_jats
+        to_formats:
+          type: array
+          description: Output formats to produce.
+          items:
+            type: string
+            enum:
+            - md
+            - html
+            - json
+            - text
+            - doctags
+        image_export_mode:
           type: string
           enum:
-          - success
-          - partial_success
-          - failure
-        errors:
+          - embedded
+          - placeholder
+          - referenced
+        do_ocr:
+          type: boolean
+        force_ocr:
+          type: boolean
+        ocr_engine:
+          type: string
+          enum:
+          - easyocr
+          - tesseract
+          - tesseract_cli
+          - rapidocr
+          - mac_ocr
+          - ocrmac
+        ocr_lang:
           type: array
           items:
-            type: object
-        processing_time:
-          type: number
-        timings:
-          type: object
-          additionalProperties:
-            type: number
-    FileSource:
-      type: object
-      required:
-      - base64_string
-      - filename
-      properties:
-        base64_string:
+            type: string
+        pdf_backend:
           type: string
-          description: Base64-encoded file content.
+          enum:
+          - dlparse_v1
+          - dlparse_v2
+          - pypdfium2
+        table_mode:
+          type: string
+          enum:
+          - fast
+          - accurate
+        do_table_structure:
+          type: boolean
+        do_code_enrichment:
+          type: boolean
+        do_formula_enrichment:
+          type: boolean
+        do_picture_classification:
+          type: boolean
+        do_picture_description:
+          type: boolean
+        picture_description_area_threshold:
+          type: number
+        include_images:
+          type: boolean
+        images_scale:
+          type: number
+        pipeline:
+          type: string
+          enum:
+          - standard
+          - vlm
+        vlm_model:
+          type: string
+        return_as_file:
+          type: boolean
+        abort_on_error:
+          type: boolean
+    DoclingDocumentRendering:
+      type: object
+      description: Container of one or more renderings of the converted document.
+      properties:
         filename:
           type: string
-          description: Original filename, used for format detection.
+        md_content:
+          type: string
+        html_content:
+          type: string
+        json_content:
+          $ref: '#/components/schemas/DoclingDocument'
+        text_content:
+          type: string
+        doctags_content:
+          type: string
     ConvertSourceRequest:
       type: object
       description: Request body for source-based document conversion.
@@ -510,26 +529,6 @@ components:
           $ref: '#/components/schemas/ConvertDocumentsOptions'
         target:
           $ref: '#/components/schemas/Target'
-    CliConvertResponse:
-      type: object
-      properties:
-        outputs:
-          type: array
-          items:
-            type: object
-            properties:
-              path:
-                type: string
-              format:
-                type: string
-        status:
-          type: string
-          enum:
-          - success
-          - partial_success
-          - failure
-        processing_time:
-          type: number
   responses:
     Error:
       description: Error response.
@@ -537,3 +536,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+x-refined-from:
+- docling-cli-openapi.yml
+- docling-serve-openapi.yml

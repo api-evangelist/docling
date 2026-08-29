@@ -1,23 +1,27 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Docling CLI as REST Async Tasks API
-  description: 'REST-style mapping of the `docling` command-line tool, modeling each conversion
+  title: Docling Serve REST Tasks API
+  description: 'HTTP service exposing the Docling document-parsing pipeline. Submit documents as URLs
 
-    invocation as a `POST /v1/convert` call. Useful for documenting and orchestrating
+    or uploads and receive a `DoclingDocument` together with optional Markdown, HTML, and
 
-    local CLI runs from agent frameworks and capability-based runtimes.
+    text renditions. Synchronous endpoints return the converted document inline; the
+
+    asynchronous endpoints return a task handle that can be polled, streamed over
+
+    WebSocket, and fetched on completion.
 
     '
   version: '1.0'
   license:
     name: MIT
-    url: https://github.com/docling-project/docling/blob/main/LICENSE
+    url: https://github.com/docling-project/docling-serve/blob/main/LICENSE
   contact:
     name: Docling Project
-    url: https://github.com/docling-project/docling
+    url: https://github.com/docling-project/docling-serve
 servers:
-- url: file:///usr/local/bin
-  description: Local docling CLI binary.
+- url: http://localhost:5001
+  description: Local Docling Serve container.
 tags:
 - name: Tasks
   description: Task status, results, and streaming.
@@ -78,22 +82,59 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    DoclingDocumentRendering:
+    TaskDetail:
       type: object
-      description: Container of one or more renderings of the converted document.
+      description: Async task descriptor returned by submit/poll/status endpoints.
+      required:
+      - task_id
+      - task_status
       properties:
-        filename:
+        task_id:
           type: string
-        md_content:
+        task_status:
           type: string
-        html_content:
+          enum:
+          - pending
+          - started
+          - success
+          - failure
+          - revoked
+        task_position:
+          type: integer
+          description: Position in the queue (0 = currently running).
+        task_meta:
+          type: object
+          additionalProperties: true
+        created_at:
           type: string
-        json_content:
-          $ref: '#/components/schemas/DoclingDocument'
-        text_content:
+          format: date-time
+        started_at:
           type: string
-        doctags_content:
+          format: date-time
+        finished_at:
           type: string
+          format: date-time
+    ConvertResponse:
+      type: object
+      properties:
+        document:
+          $ref: '#/components/schemas/DoclingDocumentRendering'
+        status:
+          type: string
+          enum:
+          - success
+          - partial_success
+          - failure
+        errors:
+          type: array
+          items:
+            type: object
+        processing_time:
+          type: number
+        timings:
+          type: object
+          additionalProperties:
+            type: number
     DoclingDocument:
       type: object
       description: Canonical Docling document representation. See docling-core for the full schema.
@@ -134,38 +175,6 @@ components:
             type: object
         pages:
           type: object
-    TaskDetail:
-      type: object
-      description: Async task descriptor returned by submit/poll/status endpoints.
-      required:
-      - task_id
-      - task_status
-      properties:
-        task_id:
-          type: string
-        task_status:
-          type: string
-          enum:
-          - pending
-          - started
-          - success
-          - failure
-          - revoked
-        task_position:
-          type: integer
-          description: Position in the queue (0 = currently running).
-        task_meta:
-          type: object
-          additionalProperties: true
-        created_at:
-          type: string
-          format: date-time
-        started_at:
-          type: string
-          format: date-time
-        finished_at:
-          type: string
-          format: date-time
     ErrorResponse:
       type: object
       properties:
@@ -173,27 +182,22 @@ components:
           type: string
         code:
           type: string
-    ConvertResponse:
+    DoclingDocumentRendering:
       type: object
+      description: Container of one or more renderings of the converted document.
       properties:
-        document:
-          $ref: '#/components/schemas/DoclingDocumentRendering'
-        status:
+        filename:
           type: string
-          enum:
-          - success
-          - partial_success
-          - failure
-        errors:
-          type: array
-          items:
-            type: object
-        processing_time:
-          type: number
-        timings:
-          type: object
-          additionalProperties:
-            type: number
+        md_content:
+          type: string
+        html_content:
+          type: string
+        json_content:
+          $ref: '#/components/schemas/DoclingDocument'
+        text_content:
+          type: string
+        doctags_content:
+          type: string
   responses:
     Error:
       description: Error response.

@@ -1,20 +1,28 @@
 {
   "provider": "docling",
   "sources": [
-    "docling-async-api-openapi.yml",
-    "docling-convert-api-openapi.yml",
-    "docling-system-api-openapi.yml",
-    "docling-tasks-api-openapi.yml"
+    "_original/docling-cli-openapi.yml",
+    "_original/docling-serve-openapi.yml"
   ],
   "outputs": [
-    "docling-async-api-openapi.yml",
     "docling-convert-api-openapi.yml",
+    "docling-async-api-openapi.yml",
     "docling-system-api-openapi.yml",
     "docling-tasks-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "docling-cli-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "docling-serve-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "tag 'Convert' spans 2 source specs (docling-cli-openapi.yml, docling-serve-openapi.yml): per-path servers applied"
+  ],
+  "skipped": [
+    "docling-async-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "docling-convert-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "docling-system-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "docling-tasks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

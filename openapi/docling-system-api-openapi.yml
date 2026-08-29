@@ -1,23 +1,27 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Docling CLI as REST Async System API
-  description: 'REST-style mapping of the `docling` command-line tool, modeling each conversion
+  title: Docling Serve REST System API
+  description: 'HTTP service exposing the Docling document-parsing pipeline. Submit documents as URLs
 
-    invocation as a `POST /v1/convert` call. Useful for documenting and orchestrating
+    or uploads and receive a `DoclingDocument` together with optional Markdown, HTML, and
 
-    local CLI runs from agent frameworks and capability-based runtimes.
+    text renditions. Synchronous endpoints return the converted document inline; the
+
+    asynchronous endpoints return a task handle that can be polled, streamed over
+
+    WebSocket, and fetched on completion.
 
     '
   version: '1.0'
   license:
     name: MIT
-    url: https://github.com/docling-project/docling/blob/main/LICENSE
+    url: https://github.com/docling-project/docling-serve/blob/main/LICENSE
   contact:
     name: Docling Project
-    url: https://github.com/docling-project/docling
+    url: https://github.com/docling-project/docling-serve
 servers:
-- url: file:///usr/local/bin
-  description: Local docling CLI binary.
+- url: http://localhost:5001
+  description: Local Docling Serve container.
 tags:
 - name: System
   description: Health and metadata.
