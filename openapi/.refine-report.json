@@ -17,7 +17,8 @@
     "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "docling-cli-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "docling-serve-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "tag 'Convert' spans 2 source specs (docling-cli-openapi.yml, docling-serve-openapi.yml): per-path servers applied"
+    "tag 'Convert' spans 2 source specs (docling-cli-openapi.yml, docling-serve-openapi.yml): per-path servers applied",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "docling-async-api-openapi.yml: previously refined output, superseded by openapi/_original/",

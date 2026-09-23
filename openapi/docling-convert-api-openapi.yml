@@ -19,9 +19,7 @@ paths:
       summary: Convert A Document Via The Docling CLI
       description: 'Run the `docling` command against one source (file path or URL) and write the
 
-        configured outputs to disk. Mirrors the `docling [source] [flags]` invocation.
-
-        '
+        configured outputs to disk. Mirrors the `docling [source] [flags]` invocation.'
       operationId: cliConvert
       requestBody:
         required: true
@@ -60,9 +58,7 @@ paths:
 
         provided inline as base64. Returns the converted document(s) directly in the
 
-        response body.
-
-        '
+        response body.'
       operationId: convertSource
       requestBody:
         required: true
@@ -95,9 +91,7 @@ paths:
       summary: Convert Documents From Uploaded Files
       description: 'Synchronously convert one or more documents uploaded as multipart form data.
 
-        Conversion options are supplied as additional form fields.
-
-        '
+        Conversion options are supplied as additional form fields.'
       operationId: convertFile
       requestBody:
         required: true
@@ -222,6 +216,13 @@ components:
           type: boolean
         verbose:
           type: boolean
+    CliError:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
     CliConvertResponse:
       type: object
       properties:
@@ -242,25 +243,6 @@ components:
           - failure
         processing_time:
           type: number
-    CliError:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: integer
-    FileSource:
-      type: object
-      required:
-      - base64_string
-      - filename
-      properties:
-        base64_string:
-          type: string
-          description: Base64-encoded file content.
-        filename:
-          type: string
-          description: Original filename, used for format detection.
     Target:
       type: object
       description: Optional delivery target for the converted output.
@@ -274,39 +256,24 @@ components:
           - http
         zip_file_name:
           type: string
-    ConvertResponse:
+    ConvertSourceRequest:
       type: object
+      description: Request body for source-based document conversion.
       properties:
-        document:
-          $ref: '#/components/schemas/DoclingDocumentRendering'
-        status:
-          type: string
-          enum:
-          - success
-          - partial_success
-          - failure
-        errors:
+        http_sources:
           type: array
+          description: HTTP/HTTPS URLs to fetch and convert.
           items:
-            type: object
-        processing_time:
-          type: number
-        timings:
-          type: object
-          additionalProperties:
-            type: number
-    HttpSource:
-      type: object
-      required:
-      - url
-      properties:
-        url:
-          type: string
-          format: uri
-        headers:
-          type: object
-          additionalProperties:
-            type: string
+            $ref: '#/components/schemas/HttpSource'
+        file_sources:
+          type: array
+          description: Inline base64-encoded documents.
+          items:
+            $ref: '#/components/schemas/FileSource'
+        options:
+          $ref: '#/components/schemas/ConvertDocumentsOptions'
+        target:
+          $ref: '#/components/schemas/Target'
     DoclingDocument:
       type: object
       description: Canonical Docling document representation. See docling-core for the full schema.
@@ -347,6 +314,22 @@ components:
             type: object
         pages:
           type: object
+    DoclingDocumentRendering:
+      type: object
+      description: Container of one or more renderings of the converted document.
+      properties:
+        filename:
+          type: string
+        md_content:
+          type: string
+        html_content:
+          type: string
+        json_content:
+          $ref: '#/components/schemas/DoclingDocument'
+        text_content:
+          type: string
+        doctags_content:
+          type: string
     ConvertFileForm:
       type: object
       properties:
@@ -394,13 +377,6 @@ components:
           type: number
         return_as_file:
           type: boolean
-    ErrorResponse:
-      type: object
-      properties:
-        detail:
-          type: string
-        code:
-          type: string
     ConvertDocumentsOptions:
       type: object
       description: Conversion behavior knobs shared by sync and async endpoints.
@@ -495,40 +471,58 @@ components:
           type: boolean
         abort_on_error:
           type: boolean
-    DoclingDocumentRendering:
+    HttpSource:
       type: object
-      description: Container of one or more renderings of the converted document.
+      required:
+      - url
       properties:
+        url:
+          type: string
+          format: uri
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+    ErrorResponse:
+      type: object
+      properties:
+        detail:
+          type: string
+        code:
+          type: string
+    FileSource:
+      type: object
+      required:
+      - base64_string
+      - filename
+      properties:
+        base64_string:
+          type: string
+          description: Base64-encoded file content.
         filename:
           type: string
-        md_content:
-          type: string
-        html_content:
-          type: string
-        json_content:
-          $ref: '#/components/schemas/DoclingDocument'
-        text_content:
-          type: string
-        doctags_content:
-          type: string
-    ConvertSourceRequest:
+          description: Original filename, used for format detection.
+    ConvertResponse:
       type: object
-      description: Request body for source-based document conversion.
       properties:
-        http_sources:
+        document:
+          $ref: '#/components/schemas/DoclingDocumentRendering'
+        status:
+          type: string
+          enum:
+          - success
+          - partial_success
+          - failure
+        errors:
           type: array
-          description: HTTP/HTTPS URLs to fetch and convert.
           items:
-            $ref: '#/components/schemas/HttpSource'
-        file_sources:
-          type: array
-          description: Inline base64-encoded documents.
-          items:
-            $ref: '#/components/schemas/FileSource'
-        options:
-          $ref: '#/components/schemas/ConvertDocumentsOptions'
-        target:
-          $ref: '#/components/schemas/Target'
+            type: object
+        processing_time:
+          type: number
+        timings:
+          type: object
+          additionalProperties:
+            type: number
   responses:
     Error:
       description: Error response.

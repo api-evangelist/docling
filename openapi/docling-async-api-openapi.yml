@@ -9,9 +9,7 @@ info:
 
     asynchronous endpoints return a task handle that can be polled, streamed over
 
-    WebSocket, and fetched on completion.
-
-    '
+    WebSocket, and fetched on completion.'
   version: '1.0'
   license:
     name: MIT
@@ -33,9 +31,7 @@ paths:
       summary: Submit Source Conversion Asynchronously
       description: 'Submit a source-based conversion job to the async queue. Returns a `TaskDetail`
 
-        with the queue position and a `task_id` for subsequent polling.
-
-        '
+        with the queue position and a `task_id` for subsequent polling.'
       operationId: convertSourceAsync
       requestBody:
         required: true
@@ -59,9 +55,7 @@ paths:
       summary: Submit File Conversion Asynchronously
       description: 'Submit an upload-based conversion job to the async queue. Returns a `TaskDetail`
 
-        for polling.
-
-        '
+        for polling.'
       operationId: convertFileAsync
       requestBody:
         required: true
@@ -80,18 +74,6 @@ paths:
           $ref: '#/components/responses/Error'
 components:
   schemas:
-    FileSource:
-      type: object
-      required:
-      - base64_string
-      - filename
-      properties:
-        base64_string:
-          type: string
-          description: Base64-encoded file content.
-        filename:
-          type: string
-          description: Original filename, used for format detection.
     Target:
       type: object
       description: Optional delivery target for the converted output.
@@ -105,38 +87,24 @@ components:
           - http
         zip_file_name:
           type: string
-    TaskDetail:
+    ConvertSourceRequest:
       type: object
-      description: Async task descriptor returned by submit/poll/status endpoints.
-      required:
-      - task_id
-      - task_status
+      description: Request body for source-based document conversion.
       properties:
-        task_id:
-          type: string
-        task_status:
-          type: string
-          enum:
-          - pending
-          - started
-          - success
-          - failure
-          - revoked
-        task_position:
-          type: integer
-          description: Position in the queue (0 = currently running).
-        task_meta:
-          type: object
-          additionalProperties: true
-        created_at:
-          type: string
-          format: date-time
-        started_at:
-          type: string
-          format: date-time
-        finished_at:
-          type: string
-          format: date-time
+        http_sources:
+          type: array
+          description: HTTP/HTTPS URLs to fetch and convert.
+          items:
+            $ref: '#/components/schemas/HttpSource'
+        file_sources:
+          type: array
+          description: Inline base64-encoded documents.
+          items:
+            $ref: '#/components/schemas/FileSource'
+        options:
+          $ref: '#/components/schemas/ConvertDocumentsOptions'
+        target:
+          $ref: '#/components/schemas/Target'
     ConvertFileForm:
       type: object
       properties:
@@ -184,13 +152,6 @@ components:
           type: number
         return_as_file:
           type: boolean
-    ErrorResponse:
-      type: object
-      properties:
-        detail:
-          type: string
-        code:
-          type: string
     ConvertDocumentsOptions:
       type: object
       description: Conversion behavior knobs shared by sync and async endpoints.
@@ -297,24 +258,57 @@ components:
           type: object
           additionalProperties:
             type: string
-    ConvertSourceRequest:
+    ErrorResponse:
       type: object
-      description: Request body for source-based document conversion.
       properties:
-        http_sources:
-          type: array
-          description: HTTP/HTTPS URLs to fetch and convert.
-          items:
-            $ref: '#/components/schemas/HttpSource'
-        file_sources:
-          type: array
-          description: Inline base64-encoded documents.
-          items:
-            $ref: '#/components/schemas/FileSource'
-        options:
-          $ref: '#/components/schemas/ConvertDocumentsOptions'
-        target:
-          $ref: '#/components/schemas/Target'
+        detail:
+          type: string
+        code:
+          type: string
+    FileSource:
+      type: object
+      required:
+      - base64_string
+      - filename
+      properties:
+        base64_string:
+          type: string
+          description: Base64-encoded file content.
+        filename:
+          type: string
+          description: Original filename, used for format detection.
+    TaskDetail:
+      type: object
+      description: Async task descriptor returned by submit/poll/status endpoints.
+      required:
+      - task_id
+      - task_status
+      properties:
+        task_id:
+          type: string
+        task_status:
+          type: string
+          enum:
+          - pending
+          - started
+          - success
+          - failure
+          - revoked
+        task_position:
+          type: integer
+          description: Position in the queue (0 = currently running).
+        task_meta:
+          type: object
+          additionalProperties: true
+        created_at:
+          type: string
+          format: date-time
+        started_at:
+          type: string
+          format: date-time
+        finished_at:
+          type: string
+          format: date-time
   responses:
     Error:
       description: Error response.

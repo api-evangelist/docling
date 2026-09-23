@@ -9,9 +9,7 @@ info:
 
     asynchronous endpoints return a task handle that can be polled, streamed over
 
-    WebSocket, and fetched on completion.
-
-    '
+    WebSocket, and fetched on completion.'
   version: '1.0'
   license:
     name: MIT
@@ -82,59 +80,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    TaskDetail:
-      type: object
-      description: Async task descriptor returned by submit/poll/status endpoints.
-      required:
-      - task_id
-      - task_status
-      properties:
-        task_id:
-          type: string
-        task_status:
-          type: string
-          enum:
-          - pending
-          - started
-          - success
-          - failure
-          - revoked
-        task_position:
-          type: integer
-          description: Position in the queue (0 = currently running).
-        task_meta:
-          type: object
-          additionalProperties: true
-        created_at:
-          type: string
-          format: date-time
-        started_at:
-          type: string
-          format: date-time
-        finished_at:
-          type: string
-          format: date-time
-    ConvertResponse:
-      type: object
-      properties:
-        document:
-          $ref: '#/components/schemas/DoclingDocumentRendering'
-        status:
-          type: string
-          enum:
-          - success
-          - partial_success
-          - failure
-        errors:
-          type: array
-          items:
-            type: object
-        processing_time:
-          type: number
-        timings:
-          type: object
-          additionalProperties:
-            type: number
     DoclingDocument:
       type: object
       description: Canonical Docling document representation. See docling-core for the full schema.
@@ -175,13 +120,6 @@ components:
             type: object
         pages:
           type: object
-    ErrorResponse:
-      type: object
-      properties:
-        detail:
-          type: string
-        code:
-          type: string
     DoclingDocumentRendering:
       type: object
       description: Container of one or more renderings of the converted document.
@@ -198,6 +136,66 @@ components:
           type: string
         doctags_content:
           type: string
+    TaskDetail:
+      type: object
+      description: Async task descriptor returned by submit/poll/status endpoints.
+      required:
+      - task_id
+      - task_status
+      properties:
+        task_id:
+          type: string
+        task_status:
+          type: string
+          enum:
+          - pending
+          - started
+          - success
+          - failure
+          - revoked
+        task_position:
+          type: integer
+          description: Position in the queue (0 = currently running).
+        task_meta:
+          type: object
+          additionalProperties: true
+        created_at:
+          type: string
+          format: date-time
+        started_at:
+          type: string
+          format: date-time
+        finished_at:
+          type: string
+          format: date-time
+    ErrorResponse:
+      type: object
+      properties:
+        detail:
+          type: string
+        code:
+          type: string
+    ConvertResponse:
+      type: object
+      properties:
+        document:
+          $ref: '#/components/schemas/DoclingDocumentRendering'
+        status:
+          type: string
+          enum:
+          - success
+          - partial_success
+          - failure
+        errors:
+          type: array
+          items:
+            type: object
+        processing_time:
+          type: number
+        timings:
+          type: object
+          additionalProperties:
+            type: number
   responses:
     Error:
       description: Error response.

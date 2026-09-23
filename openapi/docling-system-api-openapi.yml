@@ -9,9 +9,7 @@ info:
 
     asynchronous endpoints return a task handle that can be polled, streamed over
 
-    WebSocket, and fetched on completion.
-
-    '
+    WebSocket, and fetched on completion.'
   version: '1.0'
   license:
     name: MIT
