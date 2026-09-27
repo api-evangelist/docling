@@ -79,6 +79,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  responses:
+    Error:
+      description: Error response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
     DoclingDocument:
       type: object
@@ -120,22 +127,27 @@ components:
             type: object
         pages:
           type: object
-    DoclingDocumentRendering:
+    ConvertResponse:
       type: object
-      description: Container of one or more renderings of the converted document.
       properties:
-        filename:
+        document:
+          $ref: '#/components/schemas/DoclingDocumentRendering'
+        status:
           type: string
-        md_content:
-          type: string
-        html_content:
-          type: string
-        json_content:
-          $ref: '#/components/schemas/DoclingDocument'
-        text_content:
-          type: string
-        doctags_content:
-          type: string
+          enum:
+          - success
+          - partial_success
+          - failure
+        errors:
+          type: array
+          items:
+            type: object
+        processing_time:
+          type: number
+        timings:
+          type: object
+          additionalProperties:
+            type: number
     TaskDetail:
       type: object
       description: Async task descriptor returned by submit/poll/status endpoints.
@@ -168,6 +180,22 @@ components:
         finished_at:
           type: string
           format: date-time
+    DoclingDocumentRendering:
+      type: object
+      description: Container of one or more renderings of the converted document.
+      properties:
+        filename:
+          type: string
+        md_content:
+          type: string
+        html_content:
+          type: string
+        json_content:
+          $ref: '#/components/schemas/DoclingDocument'
+        text_content:
+          type: string
+        doctags_content:
+          type: string
     ErrorResponse:
       type: object
       properties:
@@ -175,31 +203,3 @@ components:
           type: string
         code:
           type: string
-    ConvertResponse:
-      type: object
-      properties:
-        document:
-          $ref: '#/components/schemas/DoclingDocumentRendering'
-        status:
-          type: string
-          enum:
-          - success
-          - partial_success
-          - failure
-        errors:
-          type: array
-          items:
-            type: object
-        processing_time:
-          type: number
-        timings:
-          type: object
-          additionalProperties:
-            type: number
-  responses:
-    Error:
-      description: Error response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'

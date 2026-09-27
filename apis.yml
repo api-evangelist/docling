@@ -344,7 +344,7 @@ tags:
 - Tables
 - RAG
 - LLM
-- Open-Source
+- Open Source
 - IBM Research
 - LF AI and Data
 - MCP
@@ -365,18 +365,24 @@ tags_raw:
 - MCP
 - Knowledge Graph
 - Generative AI
+- Open-Source
 kind: contract
 deliveryModel:
-  model: unknown
-  open_source: unknown
+  model: self-hosted
+  license: MIT
+  license_evidence:
+    repo: docling-project/docling
+    spdx: MIT
+    stars: 67937
+  open_source: true
   commercial: false
   callable_host: false
-  label: Delivery model not determined — needs a product licence on record
-  confidence: low
+  label: Self-hosted open source · you run it yourself
+  confidence: medium
   source:
   - openapi
-  - repository-unlicensed
-  generated: '2026-08-28'
+  - repository-license
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: unknown
