@@ -79,54 +79,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
-  responses:
-    Error:
-      description: Error response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    DoclingDocument:
-      type: object
-      description: Canonical Docling document representation. See docling-core for the full schema.
-      properties:
-        schema_name:
-          type: string
-        version:
-          type: string
-        name:
-          type: string
-        origin:
-          type: object
-        furniture:
-          type: array
-          items:
-            type: object
-        body:
-          type: object
-        groups:
-          type: array
-          items:
-            type: object
-        texts:
-          type: array
-          items:
-            type: object
-        tables:
-          type: array
-          items:
-            type: object
-        pictures:
-          type: array
-          items:
-            type: object
-        key_value_items:
-          type: array
-          items:
-            type: object
-        pages:
-          type: object
     ConvertResponse:
       type: object
       properties:
@@ -196,6 +149,46 @@ components:
           type: string
         doctags_content:
           type: string
+    DoclingDocument:
+      type: object
+      description: Canonical Docling document representation. See docling-core for the full schema.
+      properties:
+        schema_name:
+          type: string
+        version:
+          type: string
+        name:
+          type: string
+        origin:
+          type: object
+        furniture:
+          type: array
+          items:
+            type: object
+        body:
+          type: object
+        groups:
+          type: array
+          items:
+            type: object
+        texts:
+          type: array
+          items:
+            type: object
+        tables:
+          type: array
+          items:
+            type: object
+        pictures:
+          type: array
+          items:
+            type: object
+        key_value_items:
+          type: array
+          items:
+            type: object
+        pages:
+          type: object
     ErrorResponse:
       type: object
       properties:
@@ -203,3 +196,10 @@ components:
           type: string
         code:
           type: string
+  responses:
+    Error:
+      description: Error response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'

@@ -73,14 +73,69 @@ paths:
         '400':
           $ref: '#/components/responses/Error'
 components:
-  responses:
-    Error:
-      description: Error response.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    ConvertSourceRequest:
+      type: object
+      description: Request body for source-based document conversion.
+      properties:
+        http_sources:
+          type: array
+          description: HTTP/HTTPS URLs to fetch and convert.
+          items:
+            $ref: '#/components/schemas/HttpSource'
+        file_sources:
+          type: array
+          description: Inline base64-encoded documents.
+          items:
+            $ref: '#/components/schemas/FileSource'
+        options:
+          $ref: '#/components/schemas/ConvertDocumentsOptions'
+        target:
+          $ref: '#/components/schemas/Target'
+    FileSource:
+      type: object
+      required:
+      - base64_string
+      - filename
+      properties:
+        base64_string:
+          type: string
+          description: Base64-encoded file content.
+        filename:
+          type: string
+          description: Original filename, used for format detection.
+    TaskDetail:
+      type: object
+      description: Async task descriptor returned by submit/poll/status endpoints.
+      required:
+      - task_id
+      - task_status
+      properties:
+        task_id:
+          type: string
+        task_status:
+          type: string
+          enum:
+          - pending
+          - started
+          - success
+          - failure
+          - revoked
+        task_position:
+          type: integer
+          description: Position in the queue (0 = currently running).
+        task_meta:
+          type: object
+          additionalProperties: true
+        created_at:
+          type: string
+          format: date-time
+        started_at:
+          type: string
+          format: date-time
+        finished_at:
+          type: string
+          format: date-time
     ConvertFileForm:
       type: object
       properties:
@@ -128,50 +183,6 @@ components:
           type: number
         return_as_file:
           type: boolean
-    HttpSource:
-      type: object
-      required:
-      - url
-      properties:
-        url:
-          type: string
-          format: uri
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-    TaskDetail:
-      type: object
-      description: Async task descriptor returned by submit/poll/status endpoints.
-      required:
-      - task_id
-      - task_status
-      properties:
-        task_id:
-          type: string
-        task_status:
-          type: string
-          enum:
-          - pending
-          - started
-          - success
-          - failure
-          - revoked
-        task_position:
-          type: integer
-          description: Position in the queue (0 = currently running).
-        task_meta:
-          type: object
-          additionalProperties: true
-        created_at:
-          type: string
-          format: date-time
-        started_at:
-          type: string
-          format: date-time
-        finished_at:
-          type: string
-          format: date-time
     Target:
       type: object
       description: Optional delivery target for the converted output.
@@ -185,6 +196,18 @@ components:
           - http
         zip_file_name:
           type: string
+    HttpSource:
+      type: object
+      required:
+      - url
+      properties:
+        url:
+          type: string
+          format: uri
+        headers:
+          type: object
+          additionalProperties:
+            type: string
     ConvertDocumentsOptions:
       type: object
       description: Conversion behavior knobs shared by sync and async endpoints.
@@ -279,24 +302,6 @@ components:
           type: boolean
         abort_on_error:
           type: boolean
-    ConvertSourceRequest:
-      type: object
-      description: Request body for source-based document conversion.
-      properties:
-        http_sources:
-          type: array
-          description: HTTP/HTTPS URLs to fetch and convert.
-          items:
-            $ref: '#/components/schemas/HttpSource'
-        file_sources:
-          type: array
-          description: Inline base64-encoded documents.
-          items:
-            $ref: '#/components/schemas/FileSource'
-        options:
-          $ref: '#/components/schemas/ConvertDocumentsOptions'
-        target:
-          $ref: '#/components/schemas/Target'
     ErrorResponse:
       type: object
       properties:
@@ -304,15 +309,10 @@ components:
           type: string
         code:
           type: string
-    FileSource:
-      type: object
-      required:
-      - base64_string
-      - filename
-      properties:
-        base64_string:
-          type: string
-          description: Base64-encoded file content.
-        filename:
-          type: string
-          description: Original filename, used for format detection.
+  responses:
+    Error:
+      description: Error response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
