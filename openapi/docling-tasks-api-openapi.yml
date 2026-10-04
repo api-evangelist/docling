@@ -101,54 +101,6 @@ components:
           type: object
           additionalProperties:
             type: number
-    TaskDetail:
-      type: object
-      description: Async task descriptor returned by submit/poll/status endpoints.
-      required:
-      - task_id
-      - task_status
-      properties:
-        task_id:
-          type: string
-        task_status:
-          type: string
-          enum:
-          - pending
-          - started
-          - success
-          - failure
-          - revoked
-        task_position:
-          type: integer
-          description: Position in the queue (0 = currently running).
-        task_meta:
-          type: object
-          additionalProperties: true
-        created_at:
-          type: string
-          format: date-time
-        started_at:
-          type: string
-          format: date-time
-        finished_at:
-          type: string
-          format: date-time
-    DoclingDocumentRendering:
-      type: object
-      description: Container of one or more renderings of the converted document.
-      properties:
-        filename:
-          type: string
-        md_content:
-          type: string
-        html_content:
-          type: string
-        json_content:
-          $ref: '#/components/schemas/DoclingDocument'
-        text_content:
-          type: string
-        doctags_content:
-          type: string
     DoclingDocument:
       type: object
       description: Canonical Docling document representation. See docling-core for the full schema.
@@ -189,6 +141,54 @@ components:
             type: object
         pages:
           type: object
+    DoclingDocumentRendering:
+      type: object
+      description: Container of one or more renderings of the converted document.
+      properties:
+        filename:
+          type: string
+        md_content:
+          type: string
+        html_content:
+          type: string
+        json_content:
+          $ref: '#/components/schemas/DoclingDocument'
+        text_content:
+          type: string
+        doctags_content:
+          type: string
+    TaskDetail:
+      type: object
+      description: Async task descriptor returned by submit/poll/status endpoints.
+      required:
+      - task_id
+      - task_status
+      properties:
+        task_id:
+          type: string
+        task_status:
+          type: string
+          enum:
+          - pending
+          - started
+          - success
+          - failure
+          - revoked
+        task_position:
+          type: integer
+          description: Position in the queue (0 = currently running).
+        task_meta:
+          type: object
+          additionalProperties: true
+        created_at:
+          type: string
+          format: date-time
+        started_at:
+          type: string
+          format: date-time
+        finished_at:
+          type: string
+          format: date-time
     ErrorResponse:
       type: object
       properties:

@@ -92,6 +92,18 @@ components:
           $ref: '#/components/schemas/ConvertDocumentsOptions'
         target:
           $ref: '#/components/schemas/Target'
+    HttpSource:
+      type: object
+      required:
+      - url
+      properties:
+        url:
+          type: string
+          format: uri
+        headers:
+          type: object
+          additionalProperties:
+            type: string
     FileSource:
       type: object
       required:
@@ -104,38 +116,6 @@ components:
         filename:
           type: string
           description: Original filename, used for format detection.
-    TaskDetail:
-      type: object
-      description: Async task descriptor returned by submit/poll/status endpoints.
-      required:
-      - task_id
-      - task_status
-      properties:
-        task_id:
-          type: string
-        task_status:
-          type: string
-          enum:
-          - pending
-          - started
-          - success
-          - failure
-          - revoked
-        task_position:
-          type: integer
-          description: Position in the queue (0 = currently running).
-        task_meta:
-          type: object
-          additionalProperties: true
-        created_at:
-          type: string
-          format: date-time
-        started_at:
-          type: string
-          format: date-time
-        finished_at:
-          type: string
-          format: date-time
     ConvertFileForm:
       type: object
       properties:
@@ -183,31 +163,6 @@ components:
           type: number
         return_as_file:
           type: boolean
-    Target:
-      type: object
-      description: Optional delivery target for the converted output.
-      properties:
-        kind:
-          type: string
-          enum:
-          - inbody
-          - zip
-          - s3
-          - http
-        zip_file_name:
-          type: string
-    HttpSource:
-      type: object
-      required:
-      - url
-      properties:
-        url:
-          type: string
-          format: uri
-        headers:
-          type: object
-          additionalProperties:
-            type: string
     ConvertDocumentsOptions:
       type: object
       description: Conversion behavior knobs shared by sync and async endpoints.
@@ -302,6 +257,51 @@ components:
           type: boolean
         abort_on_error:
           type: boolean
+    Target:
+      type: object
+      description: Optional delivery target for the converted output.
+      properties:
+        kind:
+          type: string
+          enum:
+          - inbody
+          - zip
+          - s3
+          - http
+        zip_file_name:
+          type: string
+    TaskDetail:
+      type: object
+      description: Async task descriptor returned by submit/poll/status endpoints.
+      required:
+      - task_id
+      - task_status
+      properties:
+        task_id:
+          type: string
+        task_status:
+          type: string
+          enum:
+          - pending
+          - started
+          - success
+          - failure
+          - revoked
+        task_position:
+          type: integer
+          description: Position in the queue (0 = currently running).
+        task_meta:
+          type: object
+          additionalProperties: true
+        created_at:
+          type: string
+          format: date-time
+        started_at:
+          type: string
+          format: date-time
+        finished_at:
+          type: string
+          format: date-time
     ErrorResponse:
       type: object
       properties:
