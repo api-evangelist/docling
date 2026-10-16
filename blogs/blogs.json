@@ -2,8 +2,8 @@
   "repo": "docling",
   "feeds": [
     {
-      "source": "https://huggingface.co/ibm-granite/granite-docling-258M",
-      "feed_url": "https://huggingface.co/ibm-granite/granite-docling-258M",
+      "source": "https://research.ibm.com/blog/docling-generative-AI",
+      "feed_url": "https://research.ibm.com/blog/docling-generative-AI",
       "title": "",
       "saved": 0,
       "method": "none"
@@ -14,10 +14,17 @@
       "title": "",
       "saved": 0,
       "method": "feed"
+    },
+    {
+      "source": "https://huggingface.co/ibm-granite/granite-docling-258M",
+      "feed_url": "https://huggingface.co/ibm-granite/granite-docling-258M",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "post_count": 49,
-  "fetched": "2026-10-03T12:30:02Z",
+  "post_count": 52,
+  "fetched": "2026-10-10T13:15:00Z",
   "feed_nature": "vendor-blog",
   "feed_nature_basis": "path_blog",
   "feed_nature_note": "Whether these posts are the vendor publishing or its support community, decided on the URL path grammar of the saved posts -- not the hostname, which carries both on Khoros, and not author diversity, which flags large vendor blogs as forums. 'undetermined' means undetermined."
