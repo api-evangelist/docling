@@ -74,48 +74,6 @@ paths:
           $ref: '#/components/responses/Error'
 components:
   schemas:
-    ConvertSourceRequest:
-      type: object
-      description: Request body for source-based document conversion.
-      properties:
-        http_sources:
-          type: array
-          description: HTTP/HTTPS URLs to fetch and convert.
-          items:
-            $ref: '#/components/schemas/HttpSource'
-        file_sources:
-          type: array
-          description: Inline base64-encoded documents.
-          items:
-            $ref: '#/components/schemas/FileSource'
-        options:
-          $ref: '#/components/schemas/ConvertDocumentsOptions'
-        target:
-          $ref: '#/components/schemas/Target'
-    HttpSource:
-      type: object
-      required:
-      - url
-      properties:
-        url:
-          type: string
-          format: uri
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-    FileSource:
-      type: object
-      required:
-      - base64_string
-      - filename
-      properties:
-        base64_string:
-          type: string
-          description: Base64-encoded file content.
-        filename:
-          type: string
-          description: Original filename, used for format detection.
     ConvertFileForm:
       type: object
       properties:
@@ -163,6 +121,18 @@ components:
           type: number
         return_as_file:
           type: boolean
+    HttpSource:
+      type: object
+      required:
+      - url
+      properties:
+        url:
+          type: string
+          format: uri
+        headers:
+          type: object
+          additionalProperties:
+            type: string
     ConvertDocumentsOptions:
       type: object
       description: Conversion behavior knobs shared by sync and async endpoints.
@@ -257,6 +227,18 @@ components:
           type: boolean
         abort_on_error:
           type: boolean
+    FileSource:
+      type: object
+      required:
+      - base64_string
+      - filename
+      properties:
+        base64_string:
+          type: string
+          description: Base64-encoded file content.
+        filename:
+          type: string
+          description: Original filename, used for format detection.
     Target:
       type: object
       description: Optional delivery target for the converted output.
@@ -302,6 +284,24 @@ components:
         finished_at:
           type: string
           format: date-time
+    ConvertSourceRequest:
+      type: object
+      description: Request body for source-based document conversion.
+      properties:
+        http_sources:
+          type: array
+          description: HTTP/HTTPS URLs to fetch and convert.
+          items:
+            $ref: '#/components/schemas/HttpSource'
+        file_sources:
+          type: array
+          description: Inline base64-encoded documents.
+          items:
+            $ref: '#/components/schemas/FileSource'
+        options:
+          $ref: '#/components/schemas/ConvertDocumentsOptions'
+        target:
+          $ref: '#/components/schemas/Target'
     ErrorResponse:
       type: object
       properties:

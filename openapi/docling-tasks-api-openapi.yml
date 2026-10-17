@@ -80,27 +80,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ConvertResponse:
-      type: object
-      properties:
-        document:
-          $ref: '#/components/schemas/DoclingDocumentRendering'
-        status:
-          type: string
-          enum:
-          - success
-          - partial_success
-          - failure
-        errors:
-          type: array
-          items:
-            type: object
-        processing_time:
-          type: number
-        timings:
-          type: object
-          additionalProperties:
-            type: number
     DoclingDocument:
       type: object
       description: Canonical Docling document representation. See docling-core for the full schema.
@@ -141,22 +120,6 @@ components:
             type: object
         pages:
           type: object
-    DoclingDocumentRendering:
-      type: object
-      description: Container of one or more renderings of the converted document.
-      properties:
-        filename:
-          type: string
-        md_content:
-          type: string
-        html_content:
-          type: string
-        json_content:
-          $ref: '#/components/schemas/DoclingDocument'
-        text_content:
-          type: string
-        doctags_content:
-          type: string
     TaskDetail:
       type: object
       description: Async task descriptor returned by submit/poll/status endpoints.
@@ -189,6 +152,43 @@ components:
         finished_at:
           type: string
           format: date-time
+    ConvertResponse:
+      type: object
+      properties:
+        document:
+          $ref: '#/components/schemas/DoclingDocumentRendering'
+        status:
+          type: string
+          enum:
+          - success
+          - partial_success
+          - failure
+        errors:
+          type: array
+          items:
+            type: object
+        processing_time:
+          type: number
+        timings:
+          type: object
+          additionalProperties:
+            type: number
+    DoclingDocumentRendering:
+      type: object
+      description: Container of one or more renderings of the converted document.
+      properties:
+        filename:
+          type: string
+        md_content:
+          type: string
+        html_content:
+          type: string
+        json_content:
+          $ref: '#/components/schemas/DoclingDocument'
+        text_content:
+          type: string
+        doctags_content:
+          type: string
     ErrorResponse:
       type: object
       properties:

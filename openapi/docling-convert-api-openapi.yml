@@ -243,125 +243,6 @@ components:
           type: boolean
         verbose:
           type: boolean
-    ConvertResponse:
-      type: object
-      properties:
-        document:
-          $ref: '#/components/schemas/DoclingDocumentRendering'
-        status:
-          type: string
-          enum:
-          - success
-          - partial_success
-          - failure
-        errors:
-          type: array
-          items:
-            type: object
-        processing_time:
-          type: number
-        timings:
-          type: object
-          additionalProperties:
-            type: number
-    DoclingDocument:
-      type: object
-      description: Canonical Docling document representation. See docling-core for the full schema.
-      properties:
-        schema_name:
-          type: string
-        version:
-          type: string
-        name:
-          type: string
-        origin:
-          type: object
-        furniture:
-          type: array
-          items:
-            type: object
-        body:
-          type: object
-        groups:
-          type: array
-          items:
-            type: object
-        texts:
-          type: array
-          items:
-            type: object
-        tables:
-          type: array
-          items:
-            type: object
-        pictures:
-          type: array
-          items:
-            type: object
-        key_value_items:
-          type: array
-          items:
-            type: object
-        pages:
-          type: object
-    ConvertSourceRequest:
-      type: object
-      description: Request body for source-based document conversion.
-      properties:
-        http_sources:
-          type: array
-          description: HTTP/HTTPS URLs to fetch and convert.
-          items:
-            $ref: '#/components/schemas/HttpSource'
-        file_sources:
-          type: array
-          description: Inline base64-encoded documents.
-          items:
-            $ref: '#/components/schemas/FileSource'
-        options:
-          $ref: '#/components/schemas/ConvertDocumentsOptions'
-        target:
-          $ref: '#/components/schemas/Target'
-    HttpSource:
-      type: object
-      required:
-      - url
-      properties:
-        url:
-          type: string
-          format: uri
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-    DoclingDocumentRendering:
-      type: object
-      description: Container of one or more renderings of the converted document.
-      properties:
-        filename:
-          type: string
-        md_content:
-          type: string
-        html_content:
-          type: string
-        json_content:
-          $ref: '#/components/schemas/DoclingDocument'
-        text_content:
-          type: string
-        doctags_content:
-          type: string
-    FileSource:
-      type: object
-      required:
-      - base64_string
-      - filename
-      properties:
-        base64_string:
-          type: string
-          description: Base64-encoded file content.
-        filename:
-          type: string
-          description: Original filename, used for format detection.
     ConvertFileForm:
       type: object
       properties:
@@ -409,6 +290,18 @@ components:
           type: number
         return_as_file:
           type: boolean
+    HttpSource:
+      type: object
+      required:
+      - url
+      properties:
+        url:
+          type: string
+          format: uri
+        headers:
+          type: object
+          additionalProperties:
+            type: string
     ConvertDocumentsOptions:
       type: object
       description: Conversion behavior knobs shared by sync and async endpoints.
@@ -503,6 +396,58 @@ components:
           type: boolean
         abort_on_error:
           type: boolean
+    FileSource:
+      type: object
+      required:
+      - base64_string
+      - filename
+      properties:
+        base64_string:
+          type: string
+          description: Base64-encoded file content.
+        filename:
+          type: string
+          description: Original filename, used for format detection.
+    DoclingDocument:
+      type: object
+      description: Canonical Docling document representation. See docling-core for the full schema.
+      properties:
+        schema_name:
+          type: string
+        version:
+          type: string
+        name:
+          type: string
+        origin:
+          type: object
+        furniture:
+          type: array
+          items:
+            type: object
+        body:
+          type: object
+        groups:
+          type: array
+          items:
+            type: object
+        texts:
+          type: array
+          items:
+            type: object
+        tables:
+          type: array
+          items:
+            type: object
+        pictures:
+          type: array
+          items:
+            type: object
+        key_value_items:
+          type: array
+          items:
+            type: object
+        pages:
+          type: object
     Target:
       type: object
       description: Optional delivery target for the converted output.
@@ -515,6 +460,61 @@ components:
           - s3
           - http
         zip_file_name:
+          type: string
+    ConvertSourceRequest:
+      type: object
+      description: Request body for source-based document conversion.
+      properties:
+        http_sources:
+          type: array
+          description: HTTP/HTTPS URLs to fetch and convert.
+          items:
+            $ref: '#/components/schemas/HttpSource'
+        file_sources:
+          type: array
+          description: Inline base64-encoded documents.
+          items:
+            $ref: '#/components/schemas/FileSource'
+        options:
+          $ref: '#/components/schemas/ConvertDocumentsOptions'
+        target:
+          $ref: '#/components/schemas/Target'
+    ConvertResponse:
+      type: object
+      properties:
+        document:
+          $ref: '#/components/schemas/DoclingDocumentRendering'
+        status:
+          type: string
+          enum:
+          - success
+          - partial_success
+          - failure
+        errors:
+          type: array
+          items:
+            type: object
+        processing_time:
+          type: number
+        timings:
+          type: object
+          additionalProperties:
+            type: number
+    DoclingDocumentRendering:
+      type: object
+      description: Container of one or more renderings of the converted document.
+      properties:
+        filename:
+          type: string
+        md_content:
+          type: string
+        html_content:
+          type: string
+        json_content:
+          $ref: '#/components/schemas/DoclingDocument'
+        text_content:
+          type: string
+        doctags_content:
           type: string
     ErrorResponse:
       type: object
